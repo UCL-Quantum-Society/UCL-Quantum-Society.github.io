@@ -1,0 +1,45 @@
+---
+import { AstroFont } from 'astro-font';
+import AppFooter from "../components/AppFooter.astro";
+import AppHeader from "../components/AppHeader.astro";
+import "./../tailus.css"
+
+export interface Props {
+    title?: string;
+    bodyClass?: string;
+    headerTextClass?: string;
+    headerShadowClass?: string;
+    footerTextClass?: string;
+}
+
+const { title, bodyClass = "bg-white", headerTextClass, headerShadowClass, footerTextClass } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/jpeg" href="/UCLQ_Logo.jpeg" />
+        <title>{title || "UCL Quantum Society"}</title>
+
+        <AstroFont
+            config={[
+                {
+                    src: [],
+                    name: "Urbanist",
+                    preload: true,
+                    display: "swap",
+                    selector: "html",
+                    fallback: "sans-serif",
+                    googleFontsURL: 'https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap',
+                },
+            ]}
+        />
+    </head>
+    <body class={bodyClass}>
+        <AppHeader textClass={headerTextClass} shadowClass={headerShadowClass} />
+        <slot />
+        <AppFooter textClass={footerTextClass} />
+    </body>
+</html>

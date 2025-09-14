@@ -1,0 +1,170 @@
+---
+import Container from "./Container.astro"
+---
+
+<div class="relative" id="home">
+    <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+        <!-- <div class="blur-[106px] h-56 bg-gradient-to-br from-primary to-primary dark:from-blue-700"></div>
+        <div class="blur-[106px] h-32 bg-gradient-to-b from-primary to-primary dark:to-indigo-600"></div> -->
+    </div>
+    <Container>
+        <div class="relative pt-36 ml-auto">
+            <div class="flex items-center justify-center mx-auto text-center">
+              <h1 class="text-white text-balance dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl flex items-center">
+              <span>UCL Qiskit Fall Fest </span><span class="text-transparent bg-gradient-to-r from-qff-purple to-qff-pink bg-clip-text">&nbsp;2025</span>
+              </h1>
+              <img src="/QFF2025Logo.svg" alt="Event Logo" class="h-[4em] md:h-[5em] xl:h-[6em] ml-4" style="object-fit: contain;" />
+            </div>
+            <p class="mt-8 text-transparent bg-gradient-to-r from-qff-pink to-qff-purple bg-clip-text text-2xl text-center font-semibold">20-24 October 2025</p>
+            <p class="mt-4 text-transparent bg-gradient-to-r from-qff-pink to-qff-purple bg-clip-text text-2xl text-center font-semibold">UCL, Bloomsbury Campus</p>
+            <div class="mt-8 text-center mx-auto">
+              <h6 class="text-lg font-semibold text-white text-center">
+                We’re excited to announce that in honour of the <span class="text-qff-pink">International Year of Quantum</span>, we will be hosting a <span class="text-qff-purple">PARTNER SPONSORED Qiskit Fall Fest 2025</span> event, supported by <span class="text-qff-pink">IBM Quantum</span>!
+                Qiskit Fall Fest is a student-led, worldwide series of events that brings people together to explore and learn about quantum computing. Whether you're a complete beginner or an experienced quantum enthusiast, UCL Qiskit Fall Fest has something for everyone. 
+              </h6>
+                <div class="mt-12 flex flex-wrap justify-center gap-y-4 gap-x-6">
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-full blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <a href="#register" class="relative flex h-11 w-full items-center justify-center px-6 bg-gradient-to-r from-qff-purple to-qff-pink rounded-full border border-qff-purple/50 hover:border-white/30 transition-all duration-300 transform hover:scale-105 sm:w-max">
+                            <span class="relative text-base font-semibold text-white">Registration Opening Soon</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-12">
+                  <!-- Background Pattern - Extended across full page -->
+                  <div class="fixed inset-0 opacity-10 pointer-events-none">
+                    <div class="absolute top-[20%] left-[5%] w-16 h-16 rounded-full bg-qff-purple animate-pulse"></div>
+                    <div class="absolute top-[35%] right-[8%] w-12 h-12 rounded-full bg-qff-pink animate-pulse" style="animation-delay: 0.5s;"></div>
+                    <div class="absolute top-[60%] left-[12%] w-20 h-20 rounded-full bg-qff-purple animate-pulse" style="animation-delay: 1s;"></div>
+                    <div class="absolute top-[80%] right-[15%] w-14 h-14 rounded-full bg-qff-pink animate-pulse" style="animation-delay: 1.5s;"></div>
+                    <div class="absolute top-[45%] left-[25%] w-10 h-10 rounded-full bg-qff-purple animate-pulse" style="animation-delay: 2s;"></div>
+                    <div class="absolute top-[70%] right-[25%] w-18 h-18 rounded-full bg-qff-pink animate-pulse" style="animation-delay: 2.5s;"></div>
+                    <div class="absolute top-[25%] left-[75%] w-14 h-14 rounded-full bg-qff-pink animate-pulse" style="animation-delay: 3s;"></div>
+                    <div class="absolute top-[50%] right-[70%] w-12 h-12 rounded-full bg-qff-purple animate-pulse" style="animation-delay: 3.5s;"></div>
+                    <div class="absolute top-[85%] left-[65%] w-16 h-16 rounded-full bg-qff-pink animate-pulse" style="animation-delay: 4s;"></div>
+                    <div class="absolute top-[15%] right-[45%] w-10 h-10 rounded-full bg-qff-purple animate-pulse" style="animation-delay: 4.5s;"></div>
+                  </div>
+                  
+                  <div class="relative w-full max-w-4xl mx-auto">
+                    <!-- Title -->
+                    <div class="text-center mb-8 relative z-10">
+                      <h2 class="text-3xl font-bold text-transparent bg-gradient-to-r from-qff-purple to-qff-pink bg-clip-text">
+                        EVENT HIGHLIGHTS
+                      </h2>
+                      <div class="w-24 h-1 bg-gradient-to-r from-qff-purple to-qff-pink mx-auto mt-2 rounded-full"></div>
+                    </div>
+                    
+                    <!-- Event Bubbles Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                      <!-- Keynote Event -->
+                      <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-purple/30 hover:border-qff-pink/50 transition-all duration-300 transform hover:scale-105 text-center">
+                          <h3 class="text-lg font-semibold text-qff-purple">Keynote Speaker Event from IBM Quantum</h3>
+                        </div>
+                      </div>
+                      
+                      <!-- Hackathons -->
+                      <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-pink to-qff-purple rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-pink/30 hover:border-qff-purple/50 transition-all duration-300 transform hover:scale-105 text-center">
+                          <h3 class="text-lg font-semibold text-qff-pink">Exciting Hackathons with IBM Sponsored Prizes</h3>
+                        </div>
+                      </div>
+                      
+                      <!-- Tutorials -->
+                      <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-purple/30 hover:border-qff-pink/50 transition-all duration-300 transform hover:scale-105 text-center">
+                          <h3 class="text-lg font-semibold text-qff-purple">Hands-on Qiskit Tutorials</h3>
+                        </div>
+                      </div>
+                      
+                      <!-- Networking -->
+                      <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-pink to-qff-purple rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-pink/30 hover:border-qff-purple/50 transition-all duration-300 transform hover:scale-105 text-center">
+                          <h3 class="text-lg font-semibold text-qff-pink">Networking and Collaboration Opportunities</h3>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- And Much More -->
+                    <div class="mt-8 text-center relative z-10">
+                      <div class="inline-block relative group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-purple via-qff-pink to-qff-purple rounded-full blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-full px-8 py-4 border border-qff-purple/50 hover:border-qff-pink/70 transition-all duration-300">
+                          <span class="text-xl font-bold text-transparent bg-gradient-to-r from-qff-purple to-qff-pink bg-clip-text">
+                            And much more!
+                          </span>
+                          <div class="flex justify-center space-x-2 mt-2">
+                            <div class="w-2 h-2 bg-qff-purple rounded-full animate-bounce"></div>
+                            <div class="w-2 h-2 bg-qff-pink rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                            <div class="w-2 h-2 bg-qff-purple rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="mt-12 flex flex-col items-center">
+                <div class="text-center mb-8 relative z-10">
+                  <h2 class="text-3xl font-bold text-transparent bg-gradient-to-r from-qff-purple to-qff-pink bg-clip-text">
+                    ORGANISING TEAM
+                  </h2>
+                  <div class="w-24 h-1 bg-gradient-to-r from-qff-purple to-qff-pink mx-auto mt-2 rounded-full"></div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-purple/30 hover:border-qff-pink/50 transition-all duration-300 transform hover:scale-105 flex flex-col items-center w-64 text-center">
+                            <h3 class="text-lg font-semibold text-qff-pink">Surabhi Luthra</h3>
+                            <p class="text-qff-purple/80 text-sm mt-1">Lead Organiser</p>
+                        </div>
+                    </div>
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-pink to-qff-purple rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-pink/30 hover:border-qff-purple/50 transition-all duration-300 transform hover:scale-105 flex flex-col items-center w-64 text-center">
+                            <h3 class="text-lg font-semibold text-qff-pink">Rui Rui Xie</h3>
+                            <p class="text-qff-purple/80 text-sm mt-1">Co-Organiser</p>
+                        </div>
+                    </div>
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="relative bg-black bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 border border-qff-purple/30 hover:border-qff-pink/50 transition-all duration-300 transform hover:scale-105 flex flex-col items-center w-64 text-center">
+                            <h3 class="text-lg font-semibold text-qff-pink">Daniel Aliev</h3>
+                            <p class="text-qff-purple/80 text-sm mt-1">Co-Organiser</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="mt-8 text-center mx-auto">
+              <h6 class="text-lg font-semibold text-white">EVENT SCHEDULE</h6>
+            </div> -->
+            <!-- <div class="hidden py-8 mt-4 border-y border-gray-100 sm:flex justify-between">
+            <div class="text-center">
+                <h6 class="text-lg font-semibold text-white">Monday</h6>
+                <p class="mt-2 text-gray-500">Coming Soon</p>
+            </div>
+            <div class="text-center">
+                <h6 class="text-lg font-semibold text-white">Tuesday</h6>
+                <p class="mt-2 text-gray-500">Coming Soon</p>
+            </div>
+            <div class="text-center">
+                <h6 class="text-lg font-semibold text-white">Wednesday</h6>
+                <p class="mt-2 text-gray-500">Coming Soon</p>
+            </div>
+            <div class="text-center">
+                <h6 class="text-lg font-semibold text-white">Thursday</h6>
+                <p class="mt-2 text-gray-500">Coming Soon</p>
+            </div>
+            <div class="text-center">
+                <h6 class="text-lg font-semibold text-white">Friday</h6>
+                <p class="mt-2 text-gray-500">Coming Soon</p>
+            </div>
+        </div> -->
+    </Container>
+</div>
