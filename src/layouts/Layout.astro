@@ -9,10 +9,12 @@ export interface Props {
     bodyClass?: string;
     headerTextClass?: string;
     headerShadowClass?: string;
+    headerHamburgerClass?: string;
+    headerNavBackgroundClass?: string;
     footerTextClass?: string;
 }
 
-const { title, bodyClass = "bg-white", headerTextClass, headerShadowClass, footerTextClass } = Astro.props;
+const { title, bodyClass = "bg-white", headerTextClass, headerShadowClass, headerHamburgerClass, headerNavBackgroundClass, footerTextClass } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ const { title, bodyClass = "bg-white", headerTextClass, headerShadowClass, foote
         />
     </head>
     <body class={bodyClass}>
-        <AppHeader textClass={headerTextClass} shadowClass={headerShadowClass} />
+        <AppHeader textClass={headerTextClass} shadowClass={headerShadowClass} hamburgerClass={headerHamburgerClass} navBackgroundClass={headerNavBackgroundClass} />
         <slot />
         <AppFooter textClass={footerTextClass} />
     </body>
