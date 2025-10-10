@@ -11,7 +11,7 @@ export interface Props {
 const { textClass, shadowClass, hamburgerClass, navBackgroundClass } = Astro.props;
 
 // Define text color classes 
-const logoTextClass = textClass || "text-gray-900";
+const logoTextClass = textClass || "text-primary";
 const menuIconClass = hamburgerClass || "bg-black";
 const navLinksTextClass = textClass || "text-gray-600";
 const specialLinkTextClass = textClass || "text-gray-700";
@@ -24,9 +24,13 @@ const links = [
         label: "Homepage",
     },
     {
-        to: "/#calendar",
-        label: "Event Calendar",
+        to: "/about/",
+        label: "About Us",
     },
+    // {
+    //     to: "/#calendar",
+    //     label: "Event Calendar",
+    // },
 ];
 ---
 
@@ -36,7 +40,11 @@ const links = [
             <div class="relative flex flex-wrap items-center justify-between gap-6 py-3 md:gap-0 md:py-4">
                 <div class="relative z-50 flex w-full justify-between md:px-0 lg:w-fit">
                     <a href="/#home" aria-label="logo" class="flex items-center space-x-2">
-                        <span class={`text-2xl font-bold ${logoTextClass}`}>UCL Quantum Society</span>
+                        {
+                            /* Choose white logo when nav background is dark (e.g., bg-black) */
+                        }
+                        <img src={navBgClass === 'bg-black' ? '/UCLQ_Logo_White.png' : '/UCLQ_Logo.png'} alt="UCL Quantum Society logo" class="h-10 w-auto object-contain" />
+                        <span class={`text-2xl font-medium ${logoTextClass}`}>UCL Quantum Society</span>
                     </a>
                     <div class="relative flex max-h-10 items-center lg:hidden">
                         <button aria-label="humburger" id="hamburger" class="relative -mr-6 p-6 active:scale-95 duration-300">
@@ -51,14 +59,14 @@ const links = [
                         <div id="links-group" class="flex flex-col gap-6 tracking-wide lg:flex-row lg:gap-0 lg:text-sm">
                             {
                                 links.map((link) => (
-                                    <a href={link.to} class="hover:text-primary block transition md:px-4">
+                                    <a href={link.to} class="hover:text-primary block transition md:px-4 font-semibold">
                                         <span>{link.label}</span>
                                     </a>
                                 ))
                             }
-                            <a href="/" class={`flex gap-2 font-semibold transition hover:text-primary ${specialLinkTextClass} md:px-4`}>
+                            <a class={`flex gap-2 font-semibold transition hover:text-primary ${specialLinkTextClass} md:px-4`}>
                                 <span>Resource Hub</span>
-                                <span class="flex rounded-full border bg-primary/20 px-2 py-0.5 text-xs tracking-wider text-purple-700">Coming Soon!</span>
+                                <span class="flex rounded-full border bg-primary/20 px-2 py-0.5 text-xs tracking-wider text-primary">Coming Soon!</span>
                             </a>
                         </div>
                     </div>
