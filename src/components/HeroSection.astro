@@ -152,47 +152,45 @@ import Container from "./Container.astro"
                         <span class="relative text-base font-medium">Become a Member</span>
                     </a>
                 </div>
-                <!-- Q-Newsletter highlight -->
-                <div class="mt-10 flex justify-center fade-on-ready" aria-hidden="true">
-                    <article id="newsletter-card" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
+
+                                <!-- Q-Newsletter Issue 2 Highlight -->
+                <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
+                    <article id="newsletter-card-2" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
                         <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
-                            <!-- Thumbnail: use an image with the gradient + label as a CSS fallback. If the image fails to load, the text remains visible. -->
                             <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
                                 <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                                <span class="relative font-medium z-10">ISSUE 1</span>
+                                <span class="relative font-medium z-10">ISSUE 2</span>
                             </div>
                         </div>
                         <div class="flex-1 min-w-0 text-center">
                             <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
-                            <p class="mt-2 text-primary">Issue 1 Released</p>
+                            <p class="mt-2 text-primary">Issue 2 Released</p>
                             <div class="mt-4 flex flex-col items-center gap-3 text-center">
-                                <time class="text-primary" datetime="2025-10-10">10 Oct 2025</time>
+                                <time class="text-primary" datetime="2025-10-24">24 Oct 2025</time>
                                 <div class="flex flex-col md:flex-row items-center gap-3">
-                                    <button id="preview-newsletter" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
-                                    <a href="/resources/newsletters/Q-Newsletter-Issue-1.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
+                                    <button id="preview-newsletter-2" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
+                                    <a href="/resources/newsletters/Q-Newsletter-Issue-2.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
                                 </div>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <!-- Modal: inline PDF preview -->
-                <div id="pdf-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
-                    <div id="pdf-modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-                    <!-- Fullscreen on small screens, centered max width on larger screens -->
+                <!-- Modal: inline PDF preview for Issue 2 -->
+                <div id="pdf-modal-2" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title-2">
+                    <div id="pdf-modal-backdrop-2" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
                     <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
                         <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
-                            <h4 id="pdf-modal-title" class="text-white font-medium">Newsletter — Issue 1</h4>
-                            <button id="pdf-modal-close" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
+                            <h4 id="pdf-modal-title-2" class="text-white font-medium">Newsletter — Issue 2</h4>
+                            <button id="pdf-modal-close-2" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
                         </header>
                         <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
-                            <!-- Iframe lazy-loaded: src set when modal opens -->
-                            <iframe id="pdf-iframe" src="about:blank" class="w-full h-full" title="Newsletter Issue 1 preview" frameborder="0"></iframe>
+                            <iframe id="pdf-iframe-2" src="about:blank" class="w-full h-full" title="Newsletter Issue 2 preview" frameborder="0"></iframe>
                         </div>
                     </div>
                 </div>
 
-                <!-- Upcoming Events highlight -->
+                                <!-- Upcoming Events highlight -->
                 <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
                     <article id="events-card" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-start sm:items-center gap-6">
                         <div class="w-full sm:w-40 flex-shrink-0 flex justify-center sm:justify-start">
@@ -241,6 +239,47 @@ import Container from "./Container.astro"
                         </div>
                     </div>
                 </div>
+                
+                <!-- Q-Newsletter Issue 1 Highlight -->
+                <div class="mt-10 flex justify-center fade-on-ready" aria-hidden="true">
+                    <article id="newsletter-card" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
+                        <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
+                            <!-- Thumbnail: use an image with the gradient + label as a CSS fallback. If the image fails to load, the text remains visible. -->
+                            <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
+                                <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+                                <span class="relative font-medium z-10">ISSUE 1</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0 text-center">
+                            <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
+                            <p class="mt-2 text-primary">Issue 1 Released</p>
+                            <div class="mt-4 flex flex-col items-center gap-3 text-center">
+                                <time class="text-primary" datetime="2025-10-10">10 Oct 2025</time>
+                                <div class="flex flex-col md:flex-row items-center gap-3">
+                                    <button id="preview-newsletter" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
+                                    <a href="/resources/newsletters/Q-Newsletter-Issue-1.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Modal: inline PDF preview for Issue 1 -->
+                <div id="pdf-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
+                    <div id="pdf-modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+                    <!-- Fullscreen on small screens, centered max width on larger screens -->
+                    <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
+                        <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
+                            <h4 id="pdf-modal-title" class="text-white font-medium">Newsletter — Issue 1</h4>
+                            <button id="pdf-modal-close" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
+                        </header>
+                        <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
+                            <!-- Iframe lazy-loaded: src set when modal opens -->
+                            <iframe id="pdf-iframe" src="about:blank" class="w-full h-full" title="Newsletter Issue 1 preview" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         
@@ -443,6 +482,59 @@ import Container from "./Container.astro"
     function onKeyDown(e) {
         if (e.key === 'Escape') closeModal();
         // basic focus trap: keep focus inside modal when open
+        if (e.key === 'Tab') {
+            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                if (last instanceof HTMLElement) last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                if (first instanceof HTMLElement) first.focus();
+            }
+        }
+    }
+
+    previewBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    backdrop && backdrop.addEventListener('click', closeModal);
+})();
+
+// Newsletter preview modal controls (Issue 2)
+(function() {
+    const previewBtn = document.getElementById('preview-newsletter-2');
+    const modal = document.getElementById('pdf-modal-2');
+    const backdrop = document.getElementById('pdf-modal-backdrop-2');
+    const closeBtn = document.getElementById('pdf-modal-close-2');
+    const iframe = document.getElementById('pdf-iframe-2');
+    const pdfUrl = '/resources/newsletters/Q-Newsletter-Issue-2.pdf';
+    let lastFocused = null;
+
+    if (!previewBtn || !modal || !closeBtn || !iframe) return;
+
+    function openModal() {
+        lastFocused = document.activeElement;
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+        modal.removeAttribute('aria-hidden');
+        if (iframe.getAttribute('src') === 'about:blank') iframe.setAttribute('src', pdfUrl);
+        closeBtn.focus();
+        document.addEventListener('keydown', onKeyDown);
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        iframe.setAttribute('src', 'about:blank');
+        document.removeEventListener('keydown', onKeyDown);
+        if (lastFocused instanceof HTMLElement) lastFocused.focus();
+    }
+
+    function onKeyDown(e) {
+        if (e.key === 'Escape') closeModal();
         if (e.key === 'Tab') {
             const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
             if (focusables.length === 0) return;
