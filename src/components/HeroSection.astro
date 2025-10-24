@@ -153,7 +153,44 @@ import Container from "./Container.astro"
                     </a>
                 </div>
 
-                                <!-- Q-Newsletter Issue 2 Highlight -->
+                <!-- Q-Newsletter Issue 3 Highlight -->
+                <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
+                    <article id="newsletter-card-3" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
+                        <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
+                            <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
+                                <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+                                <span class="relative font-medium z-10">ISSUE 3</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0 text-center">
+                            <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
+                            <p class="mt-2 text-primary">Issue 3 Released</p>
+                            <div class="mt-4 flex flex-col items-center gap-3 text-center">
+                                <time class="text-primary" datetime="2025-10-24">24 Oct 2025</time>
+                                <div class="flex flex-col md:flex-row items-center gap-3">
+                                    <button id="preview-newsletter-3" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
+                                    <a href="/resources/newsletters/Q-Newsletter-Issue-3.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Modal: inline PDF preview for Issue 3 -->
+                <div id="pdf-modal-3" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title-3">
+                    <div id="pdf-modal-backdrop-3" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+                    <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
+                        <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
+                            <h4 id="pdf-modal-title-3" class="text-white font-medium">Newsletter — Issue 3</h4>
+                            <button id="pdf-modal-close-3" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
+                        </header>
+                        <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
+                            <iframe id="pdf-iframe-3" src="about:blank" class="w-full h-full" title="Newsletter Issue 3 preview" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q-Newsletter Issue 2 Highlight -->
                 <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
                     <article id="newsletter-card-2" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
                         <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
@@ -166,7 +203,7 @@ import Container from "./Container.astro"
                             <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
                             <p class="mt-2 text-primary">Issue 2 Released</p>
                             <div class="mt-4 flex flex-col items-center gap-3 text-center">
-                                <time class="text-primary" datetime="2025-10-24">17 Oct 2025</time>
+                                <time class="text-primary" datetime="2025-10-17">17 Oct 2025</time>
                                 <div class="flex flex-col md:flex-row items-center gap-3">
                                     <button id="preview-newsletter-2" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
                                     <a href="/resources/newsletters/Q-Newsletter-Issue-2.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
@@ -482,6 +519,59 @@ import Container from "./Container.astro"
     function onKeyDown(e) {
         if (e.key === 'Escape') closeModal();
         // basic focus trap: keep focus inside modal when open
+        if (e.key === 'Tab') {
+            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                if (last instanceof HTMLElement) last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                if (first instanceof HTMLElement) first.focus();
+            }
+        }
+    }
+
+    previewBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    backdrop && backdrop.addEventListener('click', closeModal);
+})();
+
+// Newsletter preview modal controls (Issue 3)
+(function() {
+    const previewBtn = document.getElementById('preview-newsletter-3');
+    const modal = document.getElementById('pdf-modal-3');
+    const backdrop = document.getElementById('pdf-modal-backdrop-3');
+    const closeBtn = document.getElementById('pdf-modal-close-3');
+    const iframe = document.getElementById('pdf-iframe-3');
+    const pdfUrl = '/resources/newsletters/Q-Newsletter-Issue-3.pdf';
+    let lastFocused = null;
+
+    if (!previewBtn || !modal || !closeBtn || !iframe) return;
+
+    function openModal() {
+        lastFocused = document.activeElement;
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+        modal.removeAttribute('aria-hidden');
+        if (iframe.getAttribute('src') === 'about:blank') iframe.setAttribute('src', pdfUrl);
+        closeBtn.focus();
+        document.addEventListener('keydown', onKeyDown);
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        iframe.setAttribute('src', 'about:blank');
+        document.removeEventListener('keydown', onKeyDown);
+        if (lastFocused instanceof HTMLElement) lastFocused.focus();
+    }
+
+    function onKeyDown(e) {
+        if (e.key === 'Escape') closeModal();
         if (e.key === 'Tab') {
             const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
             if (focusables.length === 0) return;
