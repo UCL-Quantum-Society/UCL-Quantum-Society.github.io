@@ -1,271 +1,203 @@
 ---
-import Container from "./Container.astro"
+import Container from './Container.astro';
+import NewsletterCard from './NewsletterCard.astro';
 ---
 
 <style>
-    /* Use Urbanist for the hero */
-    @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800&display=swap');
+  /* Use Urbanist for the hero */
+  @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800&display=swap');
 
-    /* Apply Urbanist specifically to the hero heading and its spans */
-    #hero-target, #hero-target * {
-        font-family: 'Urbanist', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+  /* Apply Urbanist specifically to the hero heading and its spans */
+  #hero-target,
+  #hero-target * {
+    font-family:
+      'Urbanist',
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .carousel-container {
+    overflow: hidden;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    padding: 2rem 0;
+  }
+
+  .carousel-track {
+    animation: infiniteScroll 40s linear infinite;
+    width: max-content;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+  }
+
+  .carousel-item {
+    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 18rem;
+    min-height: 18rem;
+    margin-right: 3rem;
+    flex-shrink: 0;
+    border-radius: 1rem;
+  }
+
+  .carousel-item:hover {
+    transform: scale(1.1);
+  }
+
+  .carousel-item img {
+    filter: brightness(0.9) contrast(1.1);
+  }
+
+  /* Seamless infinite scroll - precise calculation for large images */
+  @keyframes infiniteScroll {
+    from {
+      transform: translateX(0);
     }
-    .carousel-container {
-        overflow: hidden;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-        padding: 2rem 0;
+    to {
+      transform: translateX(calc(-21rem * 10)); /* Exact width of 10 items: (18rem + 3rem) * 10 */
     }
-    
+  }
+
+  /* Pause animation on hover */
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
     .carousel-track {
-        animation: infiniteScroll 40s linear infinite;
-        width: max-content;
-        will-change: transform;
-        display: flex;
-        align-items: center;
+      animation-duration: 40s;
     }
-    
+  }
+
+  @media (max-width: 640px) {
     .carousel-item {
-        transition: transform 0.3s ease;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        min-width: 18rem;
-        min-height: 18rem;
-        margin-right: 3rem;
-        flex-shrink: 0;
-        border-radius: 1rem;
+      width: 12rem;
+      height: 12rem;
+      min-width: 12rem;
+      min-height: 12rem;
+      margin-right: 2rem;
     }
-    
-    .carousel-item:hover {
-        transform: scale(1.1);
-    }
-    
-    .carousel-item img {
-        filter: brightness(0.9) contrast(1.1);
-    }
-    
-    /* Seamless infinite scroll - precise calculation for large images */
-    @keyframes infiniteScroll {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(calc(-21rem * 10)); /* Exact width of 10 items: (18rem + 3rem) * 10 */
-        }
-    }
-    
-    /* Pause animation on hover */
-    .carousel-track:hover {
-        animation-play-state: paused;
-    }
-    
-    /* Reduce motion for users who prefer it */
-    @media (prefers-reduced-motion: reduce) {
-        .carousel-track {
-            animation-duration: 40s;
-        }
-    }
-    
-    @media (max-width: 640px) {
-        .carousel-item {
-            width: 12rem;
-            height: 12rem;
-            min-width: 12rem;
-            min-height: 12rem;
-            margin-right: 2rem;
-        }
-        
-        .carousel-track {
-            animation-duration: 50s;
-        }
-        
-        /* Mobile-specific animation */
-        @keyframes infiniteScroll {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                transform: translateX(calc(-14rem * 10)); /* Mobile: (12rem + 2rem) * 10 */
-            }
-        }
-    }
-    
-    /* GPU acceleration for ultra-smooth animation */
+
     .carousel-track {
-        backface-visibility: hidden;
-        perspective: 1000px;
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
+      animation-duration: 50s;
     }
 
-    /* Typing-in-place and fade-in helpers */
-    .fade-on-ready {
-        opacity: 0;
-        transform: translateY(6px);
-        transition: opacity 2000ms cubic-bezier(.2,.8,.2,1), transform 2000ms cubic-bezier(.2,.8,.2,1);
+    /* Mobile-specific animation */
+    @keyframes infiniteScroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-14rem * 10)); /* Mobile: (12rem + 2rem) * 10 */
+      }
     }
+  }
 
-    .fade-on-ready.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  /* GPU acceleration for ultra-smooth animation */
+  .carousel-track {
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
 
-    /* allow smooth appearance of heading (no cursor) */
-    .hero-heading-visible {
-        /* Slow heading appearance to match other fades */
-        transition: opacity 2000ms ease;
-        opacity: 1;
-    }
+  /* Typing-in-place and fade-in helpers */
+  .fade-on-ready {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 2000ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 2000ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
 
-    /* Start hidden to prevent flash before typing begins; allow normal wrapping */
-    #hero-before, #hero-after {
-        opacity: 0;
-        /* Keep the typed spans appearing more gently */
-        transition: opacity 2000ms cubic-bezier(.2,.8,.2,1);
-        white-space: normal;
-        word-break: break-word;
-        display: inline;
-    }
+  .fade-on-ready.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* allow smooth appearance of heading (no cursor) */
+  .hero-heading-visible {
+    /* Slow heading appearance to match other fades */
+    transition: opacity 2000ms ease;
+    opacity: 1;
+  }
+
+  /* Start hidden to prevent flash before typing begins; allow normal wrapping */
+  #hero-before,
+  #hero-after {
+    opacity: 0;
+    /* Keep the typed spans appearing more gently */
+    transition: opacity 2000ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: normal;
+    word-break: break-word;
+    display: inline;
+  }
 </style>
 
 <div class="relative" id="home">
-    <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40">
-        <!-- <div class="blur-[106px] h-56 bg-gradient-to-br from-primary to-primary"></div>
+  <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40">
+    <!-- <div class="blur-[106px] h-56 bg-gradient-to-br from-primary to-primary"></div>
         <div class="blur-[106px] h-32 bg-gradient-to-b from-primary to-primary"></div> -->
-    </div>
-    <Container>
-        <div class="relative pt-50 ml-auto">
-            <div class="lg:w-2/3 text-center mx-auto">
-                                <h1 id="hero-target" class="text-white text-balance  font-medium text-5xl md:text-6xl xl:text-7xl">
-                                                    <span id="hero-before" class="font-medium text-white" style="-webkit-text-stroke: 2px #1e293b; color: white;"></span>
-                                                    <span id="hero-after" class="text-primary  font-semibold"></span>
-                                                </h1>
-                <!-- <p class="mt-8 text-transparent bg-gradient-to-r from-primary to-gray-400 bg-clip-text text-lg font-medium fade-on-ready" aria-hidden="true">Welcome to UCL Quantum Society!</p> -->
+  </div>
+  <Container>
+    <div class="relative pt-50 ml-auto">
+      <div class="lg:w-2/3 text-center mx-auto">
+        <h1 id="hero-target" class="text-white text-balance font-medium text-5xl md:text-6xl xl:text-7xl">
+          <span id="hero-before" class="font-medium text-white" style="-webkit-text-stroke: 2px #1e293b; color: white;"
+          ></span>
+          <span id="hero-after" class="text-primary font-semibold"></span>
+        </h1>
+        <!-- <p class="mt-8 text-transparent bg-gradient-to-r from-primary to-gray-400 bg-clip-text text-lg font-medium fade-on-ready" aria-hidden="true">Welcome to UCL Quantum Society!</p> -->
 
-                <div class="mt-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready" aria-hidden="true">
-                    <a href="https://studentsunionucl.org/clubs-societies/quantum-society" target="_blank" rel="noopener noreferrer" class="relative flex h-11 w-full items-center justify-center px-6 rounded-full border border-primary/30 bg-[var(--color-primary)] hover:bg-[color-mix(in srgb, var(--color-primary) 80%, white)] text-white transition-all duration-300 transform hover:scale-105 sm:w-max">
-                        <span class="relative text-base font-medium">Become a Member</span>
-                    </a>
-                </div>
+        <div class="mt-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready" aria-hidden="true">
+          <a
+            href="https://studentsunionucl.org/clubs-societies/quantum-society"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative flex h-11 w-full items-center justify-center px-6 rounded-full border border-primary/30 bg-[var(--color-primary)] hover:bg-[color-mix(in srgb, var(--color-primary) 80%, white)] text-white transition-all duration-300 transform hover:scale-105 sm:w-max"
+          >
+            <span class="relative text-base font-medium">Become a Member</span>
+          </a>
+        </div>
 
-                <!-- Q-Newsletter Issue 4 Highlight -->
-                <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
-                    <article id="newsletter-card-4" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
-                        <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
-                            <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
-                                <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                                <span class="relative font-medium z-10">ISSUE 4</span>
-                            </div>
-                        </div>
-                        <div class="flex-1 min-w-0 text-center">
-                            <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
-                            <p class="mt-2 text-primary">Issue 4 Released</p>
-                            <div class="mt-4 flex flex-col items-center gap-3 text-center">
-                                <time class="text-primary" datetime="2025-10-31">31 Oct 2025</time>
-                                <div class="flex flex-col md:flex-row items-center gap-3">
-                                    <button id="preview-newsletter-4" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
-                                    <a href="/resources/newsletters/Q-Newsletter-Issue-4.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+        <!-- Q-Newsletter Issue 4 -->
+        <NewsletterCard
+          issueNumber={4}
+          releaseDate="31 Oct 2025"
+          dateTime="2025-10-31"
+          pdfUrl="/resources/newsletters/Q-Newsletter-Issue-4.pdf"
+        />
 
-                <!-- Modal: inline PDF preview for Issue 4 -->
-                <div id="pdf-modal-4" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title-4">
-                    <div id="pdf-modal-backdrop-4" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-                    <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
-                        <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
-                            <h4 id="pdf-modal-title-4" class="text-white font-medium">Newsletter — Issue 4</h4>
-                            <button id="pdf-modal-close-4" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
-                        </header>
-                        <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
-                            <iframe id="pdf-iframe-4" src="about:blank" class="w-full h-full" title="Newsletter Issue 4 preview" frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
+        <!-- Q-Newsletter Issue 3 -->
+        <NewsletterCard
+          issueNumber={3}
+          releaseDate="24 Oct 2025"
+          dateTime="2025-10-24"
+          pdfUrl="/resources/newsletters/Q-Newsletter-Issue-3.pdf"
+        />
 
-                <!-- Q-Newsletter Issue 3 Highlight -->
-                <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
-                    <article id="newsletter-card-3" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
-                        <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
-                            <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
-                                <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                                <span class="relative font-medium z-10">ISSUE 3</span>
-                            </div>
-                        </div>
-                        <div class="flex-1 min-w-0 text-center">
-                            <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
-                            <p class="mt-2 text-primary">Issue 3 Released</p>
-                            <div class="mt-4 flex flex-col items-center gap-3 text-center">
-                                <time class="text-primary" datetime="2025-10-24">24 Oct 2025</time>
-                                <div class="flex flex-col md:flex-row items-center gap-3">
-                                    <button id="preview-newsletter-3" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
-                                    <a href="/resources/newsletters/Q-Newsletter-Issue-3.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+        <!-- Q-Newsletter Issue 2 -->
+        <NewsletterCard
+          issueNumber={2}
+          releaseDate="17 Oct 2025"
+          dateTime="2025-10-17"
+          pdfUrl="/resources/newsletters/Q-Newsletter-Issue-2.pdf"
+        />
 
-                <!-- Modal: inline PDF preview for Issue 3 -->
-                <div id="pdf-modal-3" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title-3">
-                    <div id="pdf-modal-backdrop-3" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-                    <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
-                        <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
-                            <h4 id="pdf-modal-title-3" class="text-white font-medium">Newsletter — Issue 3</h4>
-                            <button id="pdf-modal-close-3" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
-                        </header>
-                        <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
-                            <iframe id="pdf-iframe-3" src="about:blank" class="w-full h-full" title="Newsletter Issue 3 preview" frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Q-Newsletter Issue 2 Highlight -->
-                <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
-                    <article id="newsletter-card-2" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
-                        <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
-                            <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
-                                <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                                <span class="relative font-medium z-10">ISSUE 2</span>
-                            </div>
-                        </div>
-                        <div class="flex-1 min-w-0 text-center">
-                            <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
-                            <p class="mt-2 text-primary">Issue 2 Released</p>
-                            <div class="mt-4 flex flex-col items-center gap-3 text-center">
-                                <time class="text-primary" datetime="2025-10-17">17 Oct 2025</time>
-                                <div class="flex flex-col md:flex-row items-center gap-3">
-                                    <button id="preview-newsletter-2" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
-                                    <a href="/resources/newsletters/Q-Newsletter-Issue-2.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- Modal: inline PDF preview for Issue 2 -->
-                <div id="pdf-modal-2" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title-2">
-                    <div id="pdf-modal-backdrop-2" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-                    <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
-                        <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
-                            <h4 id="pdf-modal-title-2" class="text-white font-medium">Newsletter — Issue 2</h4>
-                            <button id="pdf-modal-close-2" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
-                        </header>
-                        <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
-                            <iframe id="pdf-iframe-2" src="about:blank" class="w-full h-full" title="Newsletter Issue 2 preview" frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Upcoming Events highlight -->
-                <!-- <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
+        <!-- Upcoming Events highlight -->
+        <!-- <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
                     <article id="events-card" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-start sm:items-center gap-6">
                         <div class="w-full sm:w-40 flex-shrink-0 flex justify-center sm:justify-start">
                             <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-indigo-500 flex items-center justify-center text-white font-medium text-sm">
@@ -286,8 +218,8 @@ import Container from "./Container.astro"
                     </article>
                 </div> -->
 
-                <!-- Event details modal -->
-                <!-- <div id="event-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+        <!-- Event details modal -->
+        <!-- <div id="event-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
                     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="event-modal-backdrop"></div>
                     <div class="relative w-full max-w-3xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
                         <img src="/Background.png" alt="Event background" class="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none" onerror="this.style.display='none'" />
@@ -310,51 +242,19 @@ import Container from "./Container.astro"
                     </div>
                 </div> -->
 
-                <!-- Q-Newsletter Issue 1 Highlight -->
-                <div class="mt-10 flex justify-center fade-on-ready" aria-hidden="true">
-                    <article id="newsletter-card" class="w-full sm:w-11/12 md:w-11/12 lg:w-3/4 xl:w-2/3 backdrop-blur-md bg-white/6 border border-white/20 rounded-3xl p-6 shadow-lg flex flex-col sm:flex-row items-center sm:items-center gap-6">
-                        <div class="w-full sm:w-40 flex-shrink-0 flex justify-center">
-                            <!-- Thumbnail: use an image with the gradient + label as a CSS fallback. If the image fails to load, the text remains visible. -->
-                            <div class="w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden relative shadow-inner bg-gradient-to-br from-primary to-gray-400 flex items-center justify-center text-white font-medium text-sm">
-                                <img src="/Background.png" alt="Q-Newsletter Thumbnail" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                                <span class="relative font-medium z-10">ISSUE 1</span>
-                            </div>
-                        </div>
-                        <div class="flex-1 min-w-0 text-center">
-                            <h3 class="text-primary font-medium text-2xl">Q-Newsletter</h3>
-                            <p class="mt-2 text-primary">Issue 1 Released</p>
-                            <div class="mt-4 flex flex-col items-center gap-3 text-center">
-                                <time class="text-primary" datetime="2025-10-10">10 Oct 2025</time>
-                                <div class="flex flex-col md:flex-row items-center gap-3">
-                                    <button id="preview-newsletter" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white text-sm font-medium hover:opacity-95 transition">Preview</button>
-                                    <a href="/resources/newsletters/Q-Newsletter-Issue-1.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-primary text-sm font-medium hover:bg-white/5 transition">Download PDF</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+        <!-- Q-Newsletter Issue 1 -->
+        <NewsletterCard
+          issueNumber={1}
+          releaseDate="10 Oct 2025"
+          dateTime="2025-10-10"
+          pdfUrl="/resources/newsletters/Q-Newsletter-Issue-1.pdf"
+          marginTop="mt-10"
+        />
+      </div>
+    </div>
 
-                <!-- Modal: inline PDF preview for Issue 1 -->
-                <div id="pdf-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
-                    <div id="pdf-modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-                    <!-- Fullscreen on small screens, centered max width on larger screens -->
-                    <div class="relative w-full h-full sm:h-[80vh] sm:max-w-5xl bg-primary border border-white/10 sm:rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col">
-                        <header class="sticky top-0 z-20 flex items-center justify-between p-4 border-b border-white/6 bg-primary/80 backdrop-blur-sm">
-                            <h4 id="pdf-modal-title" class="text-white font-medium">Newsletter — Issue 1</h4>
-                            <button id="pdf-modal-close" class="text-gray-300 hover:text-white rounded p-1" aria-label="Close preview">✕</button>
-                        </header>
-                        <div class="flex-1 overflow-auto bg-black max-h-[calc(90vh-56px)] sm:max-h-[calc(80vh-56px)]">
-                            <!-- Iframe lazy-loaded: src set when modal opens -->
-                            <iframe id="pdf-iframe" src="about:blank" class="w-full h-full" title="Newsletter Issue 1 preview" frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        
-        <!-- Full-width Image Carousel outside the content container -->
-        <!-- <div class="mt-12 relative overflow-hidden w-full">
+    <!-- Full-width Image Carousel outside the content container -->
+    <!-- <div class="mt-12 relative overflow-hidden w-full">
             <div class="carousel-container">
                 <div class="carousel-track">
                         <div class="carousel-track">
@@ -423,22 +323,30 @@ import Container from "./Container.astro"
                         </div>
                     </div>
                 </div> -->
-        
-
-    </Container>
+  </Container>
 </div>
 
 <!-- Spacer to separate hero from footer -->
 <div class="hero-spacer" aria-hidden="true"></div>
 
 <style>
-    .hero-spacer { height: 1rem; }
-    @media (min-width: 768px) { .hero-spacer { height: 2rem; } }
-    @media (min-width: 1280px) { .hero-spacer { height: 3rem; } }
+  .hero-spacer {
+    height: 1rem;
+  }
+  @media (min-width: 768px) {
+    .hero-spacer {
+      height: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .hero-spacer {
+      height: 3rem;
+    }
+  }
 </style>
 
 <script>
-(() => {
+  (() => {
     const heroBefore = document.getElementById('hero-before');
     const heroAfter = document.getElementById('hero-after');
     const heroTarget = document.getElementById('hero-target');
@@ -455,284 +363,71 @@ import Container from "./Container.astro"
     // to control font size and wrapping so the typing animation follows the responsive layout.
 
     function revealRest() {
-        // increase stagger to 600ms per element for a much slower, deliberate reveal
-        restFadeEls.forEach((el, idx) => {
-            setTimeout(() => {
-                el.classList.add('show');
-                // make element available to assistive tech
-                el.removeAttribute('aria-hidden');
-                // after revealing the very first element, focus the first interactive child if any
-                if (idx === 0) {
-                    const firstFocusable = el.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
-                    if (firstFocusable instanceof HTMLElement) {
-                        // focus shortly after it becomes visible; match the slower reveals
-                        setTimeout(() => firstFocusable.focus(), 420 + idx * 120);
-                    }
-                }
-            }, 600 * idx + 40);
-        });
+      // increase stagger to 600ms per element for a much slower, deliberate reveal
+      restFadeEls.forEach((el, idx) => {
+        setTimeout(
+          () => {
+            el.classList.add('show');
+            // make element available to assistive tech
+            el.removeAttribute('aria-hidden');
+            // after revealing the very first element, focus the first interactive child if any
+            if (idx === 0) {
+              const firstFocusable = el.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+              if (firstFocusable instanceof HTMLElement) {
+                // focus shortly after it becomes visible; match the slower reveals
+                setTimeout(() => firstFocusable.focus(), 420 + idx * 120);
+              }
+            }
+          },
+          600 * idx + 40
+        );
+      });
     }
 
     // Respect user's reduced motion preference: skip typing and show content immediately
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-        heroBefore.textContent = 'The future is ';
-        heroAfter.textContent = 'Quantum.';
-        restFadeEls.forEach(el => {
-            el.classList.add('show');
-            el.removeAttribute('aria-hidden');
-        });
-        // make hero spans visible immediately as well
-        heroBefore.style.opacity = '1';
-        heroAfter.style.opacity = '1';
-        return;
+      heroBefore.textContent = 'The future is ';
+      heroAfter.textContent = 'Quantum.';
+      restFadeEls.forEach((el) => {
+        el.classList.add('show');
+        el.removeAttribute('aria-hidden');
+      });
+      // make hero spans visible immediately as well
+      heroBefore.style.opacity = '1';
+      heroAfter.style.opacity = '1';
+      return;
     }
 
     function typeNext() {
-        if (i <= fullText.length) {
-            const beforeText = fullText.slice(0, Math.min(i, splitIndex));
-            const afterText = i > splitIndex ? fullText.slice(splitIndex, i) : '';
-            heroBefore.textContent = beforeText;
-            heroAfter.textContent = afterText;
-            i++;
-            setTimeout(typeNext, typingSpeed);
-        } else {
-            // ensure final text
-            heroBefore.textContent = 'The future is ';
-            heroAfter.textContent = 'Quantum.';
-            // reveal remaining hero content
-            revealRest();
-        }
+      if (i <= fullText.length) {
+        const beforeText = fullText.slice(0, Math.min(i, splitIndex));
+        const afterText = i > splitIndex ? fullText.slice(splitIndex, i) : '';
+        heroBefore.textContent = beforeText;
+        heroAfter.textContent = afterText;
+        i++;
+        setTimeout(typeNext, typingSpeed);
+      } else {
+        // ensure final text
+        heroBefore.textContent = 'The future is ';
+        heroAfter.textContent = 'Quantum.';
+        // reveal remaining hero content
+        revealRest();
+      }
     }
 
     // Make spans visible then start typing after a small delay to avoid flash
     function startTyping() {
-        heroBefore.style.opacity = '1';
-        heroAfter.style.opacity = '1';
-        // start typing after spans begin to fade in so the typed characters appear after the fade starts
-        setTimeout(typeNext, 900);
+      heroBefore.style.opacity = '1';
+      heroAfter.style.opacity = '1';
+      // start typing after spans begin to fade in so the typed characters appear after the fade starts
+      setTimeout(typeNext, 900);
     }
     requestAnimationFrame(startTyping);
-})();
+  })();
 
-// Newsletter preview modal controls
-(function() {
-    const previewBtn = document.getElementById('preview-newsletter');
-    const modal = document.getElementById('pdf-modal');
-    const backdrop = document.getElementById('pdf-modal-backdrop');
-    const closeBtn = document.getElementById('pdf-modal-close');
-    const iframe = document.getElementById('pdf-iframe');
-    const pdfUrl = '/resources/newsletters/Q-Newsletter-Issue-1.pdf';
-    let lastFocused = null;
-
-    if (!previewBtn || !modal || !closeBtn || !iframe) return;
-
-    function openModal() {
-        lastFocused = document.activeElement;
-        modal.classList.remove('hidden');
-        modal.style.display = 'flex';
-        modal.removeAttribute('aria-hidden');
-        // lazy-load iframe
-        if (iframe.getAttribute('src') === 'about:blank') iframe.setAttribute('src', pdfUrl);
-        // focus close for quick keyboard exit
-        closeBtn.focus();
-        document.addEventListener('keydown', onKeyDown);
-    }
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        // unload iframe to free memory
-        iframe.setAttribute('src', 'about:blank');
-        document.removeEventListener('keydown', onKeyDown);
-        if (lastFocused instanceof HTMLElement) lastFocused.focus();
-    }
-
-    function onKeyDown(e) {
-        if (e.key === 'Escape') closeModal();
-        // basic focus trap: keep focus inside modal when open
-        if (e.key === 'Tab') {
-            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                if (last instanceof HTMLElement) last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                if (first instanceof HTMLElement) first.focus();
-            }
-        }
-    }
-
-    previewBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    backdrop && backdrop.addEventListener('click', closeModal);
-})();
-
-// Newsletter preview modal controls (Issue 3)
-(function() {
-    const previewBtn = document.getElementById('preview-newsletter-3');
-    const modal = document.getElementById('pdf-modal-3');
-    const backdrop = document.getElementById('pdf-modal-backdrop-3');
-    const closeBtn = document.getElementById('pdf-modal-close-3');
-    const iframe = document.getElementById('pdf-iframe-3');
-    const pdfUrl = '/resources/newsletters/Q-Newsletter-Issue-3.pdf';
-    let lastFocused = null;
-
-    if (!previewBtn || !modal || !closeBtn || !iframe) return;
-
-    function openModal() {
-        lastFocused = document.activeElement;
-        modal.classList.remove('hidden');
-        modal.style.display = 'flex';
-        modal.removeAttribute('aria-hidden');
-        if (iframe.getAttribute('src') === 'about:blank') iframe.setAttribute('src', pdfUrl);
-        closeBtn.focus();
-        document.addEventListener('keydown', onKeyDown);
-    }
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        iframe.setAttribute('src', 'about:blank');
-        document.removeEventListener('keydown', onKeyDown);
-        if (lastFocused instanceof HTMLElement) lastFocused.focus();
-    }
-
-    function onKeyDown(e) {
-        if (e.key === 'Escape') closeModal();
-        if (e.key === 'Tab') {
-            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                if (last instanceof HTMLElement) last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                if (first instanceof HTMLElement) first.focus();
-            }
-        }
-    }
-
-    previewBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    backdrop && backdrop.addEventListener('click', closeModal);
-})();
-
-// Newsletter preview modal controls (Issue 4)
-(function() {
-    const previewBtn = document.getElementById('preview-newsletter-4');
-    const modal = document.getElementById('pdf-modal-4');
-    const backdrop = document.getElementById('pdf-modal-backdrop-4');
-    const closeBtn = document.getElementById('pdf-modal-close-4');
-    const iframe = document.getElementById('pdf-iframe-4');
-    const pdfUrl = '/resources/newsletters/Q-Newsletter-Issue-4.pdf';
-    let lastFocused = null;
-
-    if (!previewBtn || !modal || !closeBtn || !iframe) return;
-
-    function openModal() {
-        lastFocused = document.activeElement;
-        modal.classList.remove('hidden');
-        modal.style.display = 'flex';
-        modal.removeAttribute('aria-hidden');
-        if (iframe.getAttribute('src') === 'about:blank') iframe.setAttribute('src', pdfUrl);
-        closeBtn.focus();
-        document.addEventListener('keydown', onKeyDown);
-    }
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        iframe.setAttribute('src', 'about:blank');
-        document.removeEventListener('keydown', onKeyDown);
-        if (lastFocused instanceof HTMLElement) lastFocused.focus();
-    }
-
-    function onKeyDown(e) {
-        if (e.key === 'Escape') closeModal();
-        if (e.key === 'Tab') {
-            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                if (last instanceof HTMLElement) last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                if (first instanceof HTMLElement) first.focus();
-            }
-        }
-    }
-
-    previewBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    backdrop && backdrop.addEventListener('click', closeModal);
-})();
-
-// Newsletter preview modal controls (Issue 2)
-(function() {
-    const previewBtn = document.getElementById('preview-newsletter-2');
-    const modal = document.getElementById('pdf-modal-2');
-    const backdrop = document.getElementById('pdf-modal-backdrop-2');
-    const closeBtn = document.getElementById('pdf-modal-close-2');
-    const iframe = document.getElementById('pdf-iframe-2');
-    const pdfUrl = '/resources/newsletters/Q-Newsletter-Issue-2.pdf';
-    let lastFocused = null;
-
-    if (!previewBtn || !modal || !closeBtn || !iframe) return;
-
-    function openModal() {
-        lastFocused = document.activeElement;
-        modal.classList.remove('hidden');
-        modal.style.display = 'flex';
-        modal.removeAttribute('aria-hidden');
-        if (iframe.getAttribute('src') === 'about:blank') iframe.setAttribute('src', pdfUrl);
-        closeBtn.focus();
-        document.addEventListener('keydown', onKeyDown);
-    }
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        iframe.setAttribute('src', 'about:blank');
-        document.removeEventListener('keydown', onKeyDown);
-        if (lastFocused instanceof HTMLElement) lastFocused.focus();
-    }
-
-    function onKeyDown(e) {
-        if (e.key === 'Escape') closeModal();
-        if (e.key === 'Tab') {
-            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                if (last instanceof HTMLElement) last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                if (first instanceof HTMLElement) first.focus();
-            }
-        }
-    }
-
-    previewBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    backdrop && backdrop.addEventListener('click', closeModal);
-})();
-
-// Event details modal controls
-(function() {
+  // Event details modal controls
+  (function () {
     const detailsBtn = document.getElementById('event-details');
     const modal = document.getElementById('event-modal');
     const backdrop = document.getElementById('event-modal-backdrop');
@@ -742,44 +437,45 @@ import Container from "./Container.astro"
     if (!detailsBtn || !modal || !closeBtn) return;
 
     function openModal() {
-        lastFocused = document.activeElement;
-        modal.classList.remove('hidden');
-        modal.style.display = 'flex';
-        modal.removeAttribute('aria-hidden');
-        // focus close for keyboard users
-        closeBtn.focus();
-        document.addEventListener('keydown', onKeyDown);
+      lastFocused = document.activeElement;
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+      modal.removeAttribute('aria-hidden');
+      // focus close for keyboard users
+      closeBtn.focus();
+      document.addEventListener('keydown', onKeyDown);
     }
 
     function closeModal() {
-        modal.classList.add('hidden');
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        document.removeEventListener('keydown', onKeyDown);
-        if (lastFocused instanceof HTMLElement) lastFocused.focus();
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', onKeyDown);
+      if (lastFocused instanceof HTMLElement) lastFocused.focus();
     }
 
     function onKeyDown(e) {
-        if (e.key === 'Escape') closeModal();
-        // basic focus trap
-        if (e.key === 'Tab') {
-            const focusables = modal.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
-            if (focusables.length === 0) return;
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                if (last instanceof HTMLElement) last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                if (first instanceof HTMLElement) first.focus();
-            }
+      if (e.key === 'Escape') closeModal();
+      // basic focus trap
+      if (e.key === 'Tab') {
+        const focusables = modal.querySelectorAll(
+          'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          if (last instanceof HTMLElement) last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          if (first instanceof HTMLElement) first.focus();
         }
+      }
     }
 
     detailsBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
     backdrop && backdrop.addEventListener('click', closeModal);
-})();
-
+  })();
 </script>
