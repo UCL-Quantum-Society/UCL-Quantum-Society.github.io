@@ -11,12 +11,15 @@ export type StrapiFile = {
 
 export type Newsletter = {
   id: number;
-  attributes: {
-    Name: string;
-    Issue_Number: number;
-    PDF: StrapiFile;
-    Release_Date: string;
-  };
+  documentId: string;
+  Name: string;
+  Release_Date: string; // "YYYY-MM-DD"
+  Issue_Number: number;
+  PDF?: {
+    url: string; // already absolute in your payload
+    mime: string;
+    name: string;
+  } | null;
 };
 
 function absoluteUrl(pathOrUrl: string) {
@@ -47,6 +50,6 @@ export async function fetchNewsletters(): Promise<Newsletter[]> {
 }
 
 export function getPdfUrl(n: Newsletter) {
-  const url = n.attributes.PDF?.data?.attributes?.url || '';
+  const url = n.PDF?.url || '';
   return absoluteUrl(url);
 }
