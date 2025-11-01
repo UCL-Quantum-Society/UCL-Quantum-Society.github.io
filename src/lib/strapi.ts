@@ -26,6 +26,30 @@ function absoluteUrl(pathOrUrl: string) {
   if (!pathOrUrl) return '';
   return pathOrUrl.startsWith('http') ? pathOrUrl : `${STRAPI_URL}${pathOrUrl}`;
 }
+export async function fetchNewsletterURL(issue: number | string): Promise<URL> {
+  // Ensure issue is a string for searchParams
+  const issueStr = String(issue);
+  // Build the URL to fetch the newsletter
+  const url = new URL(`${STRAPI_URL}/api/newsletters`);
+  url.searchParams.set('filters[Issue_Number][$eq]', issueStr);
+  url.searchParams.set('populate', 'PDF');
+  url.searchParams.set('publicationState', 'live');
+  url.searchParams.set('pagination[pageSize]', '1');
+
+  const res = await fetch(url.toString(), {
+    headers: { Authorization: `Bearer ${STRAPI_API_TOKEN}` },
+  });
+  if (!res.ok) throw new Error('Not found');
+  const json = await res.json();
+  const item = Array.isArray(json) ? json[0] : json?.data?.[0];
+
+  // Strapi v4: file is usually under item.PDF or item.attributes.PDF
+  const pdf = item?.PDF ?? item?.attributes?.PDF;
+  const pdfUrl = pdf?.url ?? pdf?.data?.attributes?.url;
+  if (!pdfUrl) throw new Error('No PDF');
+
+  return new URL(pdfUrl.startsWith('http') ? pdfUrl : `${STRAPI_URL}${pdfUrl}`);
+}
 
 export async function fetchNewsletters(): Promise<Newsletter[]> {
   const params = new URLSearchParams({
