@@ -1,6 +1,16 @@
 ---
+export const prerender = true;
 import Container from './Container.astro';
 import NewsletterCard from './NewsletterCard.astro';
+import { fetchNewsletters, getPdfUrl, type Newsletter } from '../lib/strapi';
+let newsletters: Newsletter[] = [];
+try {
+  newsletters = await fetchNewsletters();
+} catch (e) {
+  console.error(e);
+  newsletters = []; // fail soft
+}
+console.log(newsletters);
 ---
 
 <style>
