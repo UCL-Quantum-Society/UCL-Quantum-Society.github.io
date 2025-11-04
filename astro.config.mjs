@@ -1,9 +1,9 @@
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  output: 'static' | 'server',
-  site: 'https://uclquantumsociety.co.uk/',
-
+  output: 'server',
   adapter: vercel(),
+  site: 'https://uclquantumsociety.co.uk',
 });
