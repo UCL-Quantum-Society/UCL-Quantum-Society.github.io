@@ -1,12 +1,9 @@
-import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 
-// https://astro.build/config
 export default defineConfig({
-  output: "static",
-  site: "https://uclquantumsociety.co.uk/",
-
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  output: 'server',
+  adapter: vercel(),
+  site: 'https://uclquantumsociety.co.uk',
 });
