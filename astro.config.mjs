@@ -1,12 +1,9 @@
-import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel/serverless'; // or '@astrojs/vercel/edge'
 
-// https://astro.build/config
 export default defineConfig({
-  output: "static",
-  site: "https://uclquantumsociety.co.uk/",
+  output: 'hybrid', // allows static + SSR/ISR
+  site: 'https://uclquantumsociety.co.uk/',
 
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  adapter: vercel({}), // serverless runtime on Vercel
 });
