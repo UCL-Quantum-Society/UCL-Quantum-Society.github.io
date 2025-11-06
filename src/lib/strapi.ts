@@ -22,10 +22,6 @@ export type Newsletter = {
   } | null;
 };
 
-function absoluteUrl(pathOrUrl: string) {
-  if (!pathOrUrl) return '';
-  return pathOrUrl.startsWith('http') ? pathOrUrl : `${STRAPI_URL}${pathOrUrl}`;
-}
 export async function fetchNewsletterURL(issue: number | string): Promise<URL> {
   // Ensure issue is a string for searchParams
   const issueStr = String(issue);
@@ -74,6 +70,7 @@ export async function fetchNewsletters(): Promise<Newsletter[]> {
 }
 
 export function getPdfUrl(n: Newsletter) {
-  const url = n.PDF?.url || '';
-  return absoluteUrl(url);
+  const url = '/newsletters/' + n.Issue_Number; //n.PDF?.url || '';
+  console.log(url);
+  return url;
 }
