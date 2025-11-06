@@ -49,7 +49,7 @@ export async function fetchNewsletterURL(issue: number | string): Promise<URL> {
 
 export async function fetchNewsletters(): Promise<Newsletter[]> {
   const params = new URLSearchParams({
-    'sort[0]': 'Release_Date:desc',
+    'sort[0]': 'Issue_Number:desc',
     'populate[0]': 'PDF',
     publicationState: 'live',
     'pagination[pageSize]': '20',
