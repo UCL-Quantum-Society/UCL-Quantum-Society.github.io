@@ -6,10 +6,8 @@ export const prerender = true;
   <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
   <div class="relative w-full">
     <div class="lg:w-2/3 text-center mx-auto">
-      <h1 id="hero-target" class="text-white text-balance font-medium text-5xl md:text-6xl xl:text-7xl">
-        <span id="hero-before" class="font-medium text-white" style="-webkit-text-stroke: 2px #1e293b; color: white;"
-        ></span>
-        <span id="hero-after" class="text-primary font-semibold"></span>
+      <h1 id="hero-target" class="text-balance font-medium text-5xl md:text-6xl xl:text-7xl">
+        <div id="hero-text" class="flex flex-col items-center gap-2"></div>
       </h1>
       <div class="m-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready" aria-hidden="true">
         <a
@@ -28,7 +26,7 @@ export const prerender = true;
 <!-- Spacer to separate hero from footer -->
 <div class="hero-spacer" aria-hidden="true"></div>
 
-<style>
+<style is:global>
   .hero-spacer {
     height: 1rem;
   }
@@ -42,38 +40,57 @@ export const prerender = true;
       height: 3rem;
     }
   }
+
+  @keyframes wordFadeColor {
+    0% {
+      opacity: 0;
+      color: var(--color-blue-200);
+    }
+    50% {
+      opacity: 1;
+      color: var(--color-blue-700);
+    }
+    100% {
+      opacity: 1;
+      color: var(--color-white);
+    }
+  }
+
+  .word-animate {
+    display: inline-block;
+    animation: wordFadeColor 0.6s ease-out forwards;
+    color: var(--color-white);
+  }
 </style>
 
 <script>
   (() => {
-    const heroBefore = document.getElementById('hero-before');
-    const heroAfter = document.getElementById('hero-after');
-    const heroTarget = document.getElementById('hero-target');
+    const heroText = document.getElementById('hero-text');
     const restFadeEls = Array.from(document.querySelectorAll('.fade-on-ready'));
 
-    if (!heroBefore || !heroAfter || !heroTarget) return;
+    if (!heroText) return;
 
-    const fullText = 'The future is Quantum.';
-    const splitIndex = 'The future is '.length;
-    const typingSpeed = 65; // slightly faster typing for a snappier effect
-    let i = 0;
+    // Define words with their respective styles
+    const words = [
+      { text: 'The', style: 'light', lineBreak: false },
+      { text: 'future', style: 'light', lineBreak: false },
+      { text: 'is', style: 'light', lineBreak: true },
+      { text: 'Quantum', style: 'bold', lineBreak: false },
+    ];
 
-    // Do not copy computed font styles to inline styles — allow CSS (Tailwind responsive classes)
-    // to control font size and wrapping so the typing animation follows the responsive layout.
+    const wordDelay = 200;
+    let wordIndex = 0;
+    let currentLine = null;
 
     function revealRest() {
-      // increase stagger to 600ms per element for a much slower, deliberate reveal
       restFadeEls.forEach((el, idx) => {
         setTimeout(
           () => {
             el.classList.add('show');
-            // make element available to assistive tech
             el.removeAttribute('aria-hidden');
-            // after revealing the very first element, focus the first interactive child if any
             if (idx === 0) {
               const firstFocusable = el.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
               if (firstFocusable instanceof HTMLElement) {
-                // focus shortly after it becomes visible; match the slower reveals
                 setTimeout(() => firstFocusable.focus(), 420 + idx * 120);
               }
             }
@@ -83,45 +100,68 @@ export const prerender = true;
       });
     }
 
-    // Respect user's reduced motion preference: skip typing and show content immediately
+    // Respect user's reduced motion preference
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      heroBefore.textContent = 'The future is ';
-      heroAfter.textContent = 'Quantum.';
+      const line1 = document.createElement('div');
+      line1.style.cssText =
+        "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 500; letter-spacing: 0.5em; color: var(--color-primary);";
+      line1.textContent = 'The future is';
+
+      const line2 = document.createElement('div');
+      line2.className = 'font-semibold text-white letter-spacing-0.5em';
+      line2.textContent = 'Quantum';
+
+      heroText.appendChild(line1);
+      heroText.appendChild(line2);
+
       restFadeEls.forEach((el) => {
         el.classList.add('show');
         el.removeAttribute('aria-hidden');
       });
-      // make hero spans visible immediately as well
-      heroBefore.style.opacity = '1';
-      heroAfter.style.opacity = '1';
       return;
     }
 
-    function typeNext() {
-      if (i <= fullText.length) {
-        const beforeText = fullText.slice(0, Math.min(i, splitIndex));
-        const afterText = i > splitIndex ? fullText.slice(splitIndex, i) : '';
-        heroBefore.textContent = beforeText;
-        heroAfter.textContent = afterText;
-        i++;
-        setTimeout(typeNext, typingSpeed);
+    function createLine(style) {
+      const line = document.createElement('div');
+      if (style === 'light') {
+        line.style.cssText =
+          "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 300; letter-spacing: -0.02em;";
       } else {
-        // ensure final text
-        heroBefore.textContent = 'The future is ';
-        heroAfter.textContent = 'Quantum.';
-        // reveal remaining hero content
+        line.className += ' font-semibold';
+      }
+      return line;
+    }
+
+    function typeNextWord() {
+      if (wordIndex < words.length) {
+        const word = words[wordIndex];
+
+        // Create new line if needed
+        if (!currentLine || (wordIndex > 0 && words[wordIndex - 1].lineBreak)) {
+          currentLine = createLine(word.style);
+          heroText.appendChild(currentLine);
+        }
+
+        // Add word to current line with animation
+        if (currentLine.childNodes.length > 0) {
+          currentLine.appendChild(document.createTextNode(' '));
+        }
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word-animate';
+        wordSpan.textContent = word.text;
+        currentLine.appendChild(wordSpan);
+        wordIndex++;
+        setTimeout(typeNextWord, wordDelay);
+      } else {
         revealRest();
       }
     }
 
-    // Make spans visible then start typing after a small delay to avoid flash
     function startTyping() {
-      heroBefore.style.opacity = '1';
-      heroAfter.style.opacity = '1';
-      // start typing after spans begin to fade in so the typed characters appear after the fade starts
-      setTimeout(typeNext, 900);
+      setTimeout(typeNextWord, 300);
     }
+
     requestAnimationFrame(startTyping);
   })();
 </script>
