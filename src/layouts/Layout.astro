@@ -1,47 +1,44 @@
 ---
 import { AstroFont } from 'astro-font';
-import AppFooter from "../components/AppFooter.astro";
-import AppHeader from "../components/AppHeader.astro";
-import "./../tailus.css"
+import AppFooter from '../components/AppFooter.astro';
+import AppHeader from '../components/AppHeader.astro';
+import './../tailus.css';
 
 export interface Props {
-    title?: string;
-    bodyClass?: string;
-    headerTextClass?: string;
-    headerShadowClass?: string;
-    headerHamburgerClass?: string;
-    headerNavBackgroundClass?: string;
-    footerTextClass?: string;
+  title?: string;
+  bodyClass?: string;
+  headerTextClass?: string;
+  footerTextClass?: string;
 }
 
-const { title, bodyClass = "bg-white", headerTextClass, headerShadowClass, headerHamburgerClass, headerNavBackgroundClass, footerTextClass } = Astro.props;
+const { title, bodyClass = 'bg-black', headerTextClass, footerTextClass } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/png" href="/UCLQ_Logo.png" />
-        <title>{title || "UCL Quantum Society"}</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/UCLQ_Logo.png" />
+    <title>{title || 'UCL Quantum Society'}</title>
 
-        <AstroFont
-            config={[
-                {
-                    src: [],
-                    name: "Montserrat",
-                    preload: true,
-                    display: "swap",
-                    selector: "html",
-                    fallback: "sans-serif",
-                    googleFontsURL: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap',
-                },
-            ]}
-        />
-    </head>
-    <body class={bodyClass}>
-        <AppHeader textClass={headerTextClass} shadowClass={headerShadowClass} hamburgerClass={headerHamburgerClass} navBackgroundClass={headerNavBackgroundClass} />
-        <slot />
-        <AppFooter textClass={footerTextClass} />
-    </body>
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: 'Montserrat',
+          preload: true,
+          display: 'swap',
+          selector: 'html',
+          fallback: 'sans-serif',
+          googleFontsURL: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap',
+        },
+      ]}
+    />
+  </head>
+  <body class={bodyClass}>
+    <AppHeader textClass={headerTextClass} />
+    <slot />
+    <AppFooter textClass={footerTextClass} />
+  </body>
 </html>

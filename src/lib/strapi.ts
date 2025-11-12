@@ -71,6 +71,5 @@ export async function fetchNewsletters(): Promise<Newsletter[]> {
 
 export function getPdfUrl(n: Newsletter) {
   const url = '/newsletters/' + n.Issue_Number; //n.PDF?.url || '';
-  console.log(url);
   return url;
 }
