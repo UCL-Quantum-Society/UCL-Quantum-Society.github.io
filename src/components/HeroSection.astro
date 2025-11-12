@@ -1,15 +1,6 @@
 ---
 export const prerender = true;
 import Container from './Container.astro';
-import NewsletterCard from './NewsletterCard.astro';
-import { fetchNewsletters, getPdfUrl, type Newsletter } from '../lib/strapi';
-let newsletters: Newsletter[] = [];
-try {
-  newsletters = await fetchNewsletters();
-} catch (e) {
-  console.error(e);
-  newsletters = []; // fail soft
-}
 ---
 
 <style>
@@ -180,25 +171,6 @@ try {
             <span class="relative text-base font-medium">Become a Member</span>
           </a>
         </div>
-
-        {
-          newsletters.map((n, i) => {
-            const pdfUrl = getPdfUrl(n);
-            return (
-              <NewsletterCard
-                issueNumber={n.Issue_Number}
-                releaseDate={new Date(n.Release_Date).toLocaleDateString('en-GB', {
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric',
-                })}
-                dateTime={n.Release_Date}
-                pdfUrl={pdfUrl}
-                marginTop={i === 0 ? 'mt-0' : 'mt-10'}
-              />
-            );
-          })
-        }
 
         <!-- Upcoming Events highlight -->
         <!-- <div class="mt-6 flex justify-center fade-on-ready" aria-hidden="true">
