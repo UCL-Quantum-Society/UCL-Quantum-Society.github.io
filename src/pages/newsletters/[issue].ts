@@ -72,7 +72,8 @@ export const GET: APIRoute = async ({ params, request }) => {
     headers.delete('Location');
 
     // Cache at the edge but allow background revalidation
-    headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=604800');
+    headers.set('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800');
+    headers.set('CDN-Cache-Control', 'public, s-maxage=31536000');
 
     // Ensure range support headers pass through
     // (Strapi/your storage should already send Accept-Ranges, Content-Range, Content-Length on 206)

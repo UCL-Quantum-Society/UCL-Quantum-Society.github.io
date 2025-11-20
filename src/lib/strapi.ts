@@ -2,6 +2,9 @@
 const STRAPI_URL = import.meta.env.STRAPI_URL?.replace(/\/$/, '') || '';
 const STRAPI_API_TOKEN = import.meta.env.STRAPI_API_TOKEN;
 
+const urlCache = new Map<string, { url: URL; expires: number }>();
+const CACHE_DURATION = 1000 * 60 * 10; // 10 minutes
+
 export type StrapiFile = {
   data: null | {
     id: number;
@@ -25,6 +28,13 @@ export type Newsletter = {
 export async function fetchNewsletterURL(issue: number | string): Promise<URL> {
   // Ensure issue is a string for searchParams
   const issueStr = String(issue);
+
+  // Check cache first
+  const cached = urlCache.get(issueStr);
+  if (cached && Date.now() < cached.expires) {
+    return cached.url;
+  }
+
   // Build the URL to fetch the newsletter
   const url = new URL(`${STRAPI_URL}/api/newsletters`);
   url.searchParams.set('filters[Issue_Number][$eq]', issueStr);
@@ -44,7 +54,12 @@ export async function fetchNewsletterURL(issue: number | string): Promise<URL> {
   const pdfUrl = pdf?.url ?? pdf?.data?.attributes?.url;
   if (!pdfUrl) throw new Error('No PDF');
 
-  return new URL(pdfUrl.startsWith('http') ? pdfUrl : `${STRAPI_URL}${pdfUrl}`);
+  const finalUrl = new URL(pdfUrl.startsWith('http') ? pdfUrl : `${STRAPI_URL}${pdfUrl}`);
+
+  // Update cache
+  urlCache.set(issueStr, { url: finalUrl, expires: Date.now() + CACHE_DURATION });
+
+  return finalUrl;
 }
 
 export async function fetchNewsletters(): Promise<Newsletter[]> {
