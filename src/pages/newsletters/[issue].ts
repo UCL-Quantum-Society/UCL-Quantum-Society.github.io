@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import { fetchNewsletterURL } from '../../lib/strapi';
 
 export const prerender = false;
+export const config = { runtime: 'edge' };
 
 const notFoundHtml = (issue: string) => `<!doctype html>
 <html lang="en">
