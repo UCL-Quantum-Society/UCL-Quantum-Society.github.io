@@ -2,7 +2,7 @@
 export const prerender = true;
 ---
 
-<div class="relative min-h-screen flex items-center">
+<div class="relative min-h-screen flex items-center bg-gradient-to-b from-black/60 via-[#080016]/50 to-[#0a001f]">
   <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
   <div class="relative w-full">
     <div class="lg:w-2/3 text-center mx-auto">
@@ -22,9 +22,6 @@ export const prerender = true;
     </div>
   </div>
 </div>
-
-<!-- Spacer to separate hero from footer -->
-<div class="hero-spacer" aria-hidden="true"></div>
 
 <style is:global>
   .hero-spacer {
@@ -126,7 +123,7 @@ export const prerender = true;
       const line = document.createElement('div');
       if (style === 'light') {
         line.style.cssText =
-          "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 300; letter-spacing: -0.02em;";
+          "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 300; letter-spacing: -0.02em; font-weight: semibold;";
       } else {
         line.className += ' font-semibold';
       }

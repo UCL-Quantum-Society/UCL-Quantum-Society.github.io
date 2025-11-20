@@ -40,5 +40,17 @@ const { title, bodyClass = 'bg-black', headerTextClass, footerTextClass } = Astr
     <AppHeader textClass={headerTextClass} />
     <slot />
     <AppFooter textClass={footerTextClass} />
+    <script>
+      import Lenis from 'lenis';
+
+      const lenis = new Lenis();
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
   </body>
 </html>
