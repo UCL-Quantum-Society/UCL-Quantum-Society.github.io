@@ -1,0 +1,123 @@
+---
+import '../tailus.css';
+
+const siteTitle = 'Logo Demo';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{siteTitle}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <main class="landing">
+      <!-- Centered logo group that will move up -->
+      <div class="logo js">
+        <img src="/UCLQ_Logo_White.png" alt="UCL Quantum Society logo" class="h-10 w-auto object-contain" />
+        <span class="text-2xl font-medium text-white"> UCL Quantum Society </span>
+      </div>
+
+      <button type="button">Rotate</button>
+    </main>
+
+    <style>
+      :global(body) {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'SF Pro Text',
+          sans-serif;
+        background: linear-gradient(120deg, var(--color-primary), #1e3a8a, #38bdf8, var(--color-primary));
+        background-size: 300% 300%;
+        animation: gradient-move 18s ease-in-out infinite;
+        color: white;
+      }
+
+      @keyframes gradient-move {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .landing {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      /* Logo starts in the center of the screen */
+      .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      /* Put the button at the bottom center, optional */
+      .landing > button {
+        position: absolute;
+        bottom: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.5rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(15, 23, 42, 0.8);
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+
+    <script>
+      import { animate, utils, spring } from 'animejs';
+
+      const [$logo] = utils.$('.logo.js');
+      const [$button] = utils.$('button');
+
+      let rotations = 0;
+
+      // 1) Intro: fade in + slight scale from center
+      animate($logo, {
+        opacity: [0, 1],
+        scale: [0.8, 1],
+        duration: 600,
+        easing: 'ease-out',
+      });
+
+      // 2) After intro, move the logo up toward the top of the screen
+      animate($logo, {
+        y: ['0', '-40vh'], // from center to near top
+        duration: 1000,
+        easing: 'ease-in-out',
+      });
+
+      // Button: rotate the logo group in place
+      const rotateLogo = () => {
+        rotations++;
+        $button.innerText = `rotations: ${rotations}`;
+        animate($logo, {
+          rotate: rotations * 360,
+          ease: 'out(4)',
+          duration: 1500,
+        });
+      };
+
+      $button.addEventListener('click', rotateLogo);
+    </script>
+  </body>
+</html>

@@ -3,9 +3,10 @@ import Container from './Container.astro';
 
 export interface Props {
   textClass?: string;
+  logo?: string;
 }
 
-const { textClass } = Astro.props;
+const { textClass, logo = '/UCLQ_Logo_White.png' } = Astro.props;
 
 // Define text color class
 const logoTextClass = textClass || 'text-white';
@@ -16,7 +17,7 @@ const logoTextClass = textClass || 'text-white';
     <Container>
       <div class="flex items-center justify-center py-4">
         <a href="/" aria-label="logo" class="flex items-center space-x-2">
-          <img src="/UCLQ_Logo_White.png" alt="UCL Quantum Society logo" class="h-10 w-auto object-contain" />
+          <img src={logo} alt="UCL Quantum Society logo" class="h-10 w-auto object-contain" />
           <span class={`text-2xl font-medium ${logoTextClass}`}>UCL Quantum Society</span>
         </a>
       </div>

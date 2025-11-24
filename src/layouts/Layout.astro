@@ -9,9 +9,10 @@ export interface Props {
   bodyClass?: string;
   headerTextClass?: string;
   footerTextClass?: string;
+  logo?: string;
 }
 
-const { title, bodyClass = 'bg-black', headerTextClass, footerTextClass } = Astro.props;
+const { title, bodyClass = 'bg-black', headerTextClass, footerTextClass, logo } = Astro.props;
 ---
 
 <!doctype html>
@@ -37,7 +38,7 @@ const { title, bodyClass = 'bg-black', headerTextClass, footerTextClass } = Astr
     />
   </head>
   <body class={bodyClass}>
-    <AppHeader textClass={headerTextClass} />
+    <AppHeader textClass={headerTextClass} logo={logo} />
     <slot />
     <AppFooter textClass={footerTextClass} />
     <script>
