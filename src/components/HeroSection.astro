@@ -1,18 +1,35 @@
 ---
 export const prerender = true;
+
+export interface Props {
+  theme?: 'light' | 'dark';
+}
+
+const { theme = 'dark' } = Astro.props;
+
+const overlayClass =
+  theme === 'light'
+    ? 'bg-gradient-to-b from-white/90 via-white/80 to-gray-50'
+    : 'bg-gradient-to-b from-black/90 via-[#080016]/80 to-[#0a001f]';
+
+const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs white
 ---
 
-<div class="relative min-h-screen flex items-center overflow-hidden">
+<div class="relative min-h-screen flex items-center overflow-hidden" data-theme={theme}>
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0 z-0">
     <img src="/hero-background.jpg" alt="Background" class="w-full h-full object-cover opacity-60" />
-    <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-[#080016]/80 to-[#0a001f]"></div>
+    <div class={`absolute inset-0 ${overlayClass}`}></div>
   </div>
 
   <div aria-hidden="true" class="absolute inset-0 z-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
   <div class="relative z-10 w-full">
     <div class="lg:w-2/3 text-center mx-auto">
-      <h1 id="hero-target" class="text-balance font-medium text-5xl md:text-6xl xl:text-7xl">
+      <h1
+        id="hero-target"
+        class="text-balance font-medium text-5xl md:text-6xl xl:text-7xl"
+        style={`--hero-text-color: ${textColorVar}`}
+      >
         <div id="hero-text" class="flex flex-col items-center gap-2"></div>
       </h1>
       <div class="m-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready" aria-hidden="true">
@@ -55,20 +72,22 @@ export const prerender = true;
     }
     100% {
       opacity: 1;
-      color: var(--color-white);
+      color: var(--hero-text-color, white);
     }
   }
 
   .word-animate {
     display: inline-block;
     animation: wordFadeColor 0.6s ease-out forwards;
-    color: var(--color-white);
+    color: var(--hero-text-color, white);
   }
 </style>
 
 <script>
   (() => {
     const heroText = document.getElementById('hero-text');
+    const wrapper = document.querySelector('[data-theme]');
+    const theme = wrapper ? wrapper.getAttribute('data-theme') : 'dark';
     const restFadeEls = Array.from(document.querySelectorAll('.fade-on-ready'));
 
     if (!heroText) return;
@@ -112,7 +131,7 @@ export const prerender = true;
       line1.textContent = 'The future is';
 
       const line2 = document.createElement('div');
-      line2.className = 'font-semibold text-white letter-spacing-0.5em';
+      line2.className = `font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'} letter-spacing-0.5em`;
       line2.textContent = 'Quantum';
 
       heroText.appendChild(line1);
