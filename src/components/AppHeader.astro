@@ -13,7 +13,7 @@ const logoTextClass = textClass || 'text-white';
 ---
 
 <header>
-  <nav class="fixed top-0 left-0 right-0 z-30 w-full bg-transparent">
+  <nav class="progressive-blur fixed inset-x-0 top-0 z-30 w-full">
     <Container>
       <div class="flex items-center justify-center py-4">
         <a href="/" aria-label="logo" class="flex items-center space-x-2">
@@ -24,3 +24,24 @@ const logoTextClass = textClass || 'text-white';
     </Container>
   </nav>
 </header>
+
+<style>
+  .progressive-blur {
+    --blur: 0.5rem;
+    --ratio: 2.5;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(100% - calc(var(--blur) * var(--ratio))),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(100% - calc(var(--blur) * var(--ratio))),
+      transparent 100%
+    );
+  }
+</style>
