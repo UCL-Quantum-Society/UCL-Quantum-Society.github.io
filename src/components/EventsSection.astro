@@ -1,10 +1,85 @@
 ---
+const images = [
+  '/images/IMG_7023.jpg',
+  '/images/IMG_7117.JPG',
+  '/images/IMG_7172.JPG',
+  '/images/IMG_7842.jpg',
+  '/images/IMG_7843.jpg',
+];
 
+// We need enough duplicates to fill the screen width + buffer
+// Tripling the list ensures smooth looping on wide screen
+const scrollImages = [...images, ...images, ...images];
 ---
 
-<section class="py-20 bg-white">
-  <div class="text-center">
-    <h2 class="text-4xl font-bold text-gray-900 mb-4">Events</h2>
-    <p class="text-xl text-gray-600">... coming soon</p>
+<section class="py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+  <div class="container mx-auto px-4 mb-16 text-center">
+    <h2 class="text-4xl font-bold text-gray-900 mb-4">Events Gallery</h2>
+    <p class="text-gray-600 max-w-2xl mx-auto">A look back at our past events.</p>
+  </div>
+
+  <!-- Qiskit Fall Fest Section -->
+  <div class="mb-12">
+    <div class="flex items-center justify-center gap-4 mb-4">
+      <div class="h-px bg-gradient-to-r from-transparent to-indigo-200 w-16 sm:w-32"></div>
+      <span class="text-indigo-600 font-bold tracking-wider text-sm uppercase">Qiskit Fall Fest</span>
+      <div class="h-px bg-gradient-to-l from-transparent to-indigo-200 w-16 sm:w-32"></div>
+    </div>
+
+    <h3 class="text-3xl font-bold text-center text-gray-900 mb-4"></h3>
+    <p class="text-center text-gray-600 max-w-2xl mx-auto mb-10 px-4">
+      Bringing together students and researchers for workshops, hackathons, and networking in the quantum computing
+      space.
+    </p>
+
+    <!-- Marquee Container -->
+    <div class="relative w-full overflow-hidden group">
+      <!-- Gradient Masks for smooth fade effect at edges -->
+      <div
+        class="absolute left-0 top-0 bottom-0 w-12 sm:w-32 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"
+      >
+      </div>
+      <div
+        class="absolute right-0 top-0 bottom-0 w-12 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"
+      >
+      </div>
+
+      <!-- Scrolling Track -->
+      <div class="flex w-max animate-marquee hover:[animation-play-state:paused]">
+        <div class="flex gap-6 sm:gap-8 px-4">
+          {
+            scrollImages.map((src, index) => (
+              <div class="relative flex-shrink-0 w-[350px] h-[250px] sm:w-[400px] sm:h-[300px] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group/image">
+                <div class="absolute inset-0 bg-black/10 transition-colors z-10" />
+                <img
+                  src={src}
+                  alt={`Qiskit Fall Fest highlight ${index + 1}`}
+                  class="w-full h-full object-cover transform transition-transform duration-700"
+                  loading={index < 4 ? 'eager' : 'lazy'}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.33%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+</style>
