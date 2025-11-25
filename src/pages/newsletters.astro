@@ -5,6 +5,18 @@ import Container from '../components/Container.astro';
 import NewsletterCard from '../components/NewsletterCard.astro';
 import { fetchNewsletters, getPdfUrl, type Newsletter } from '../lib/strapi';
 
+const theme: 'light' | 'dark' = 'light';
+const isLight = theme === 'light';
+
+const bodyClass = isLight ? 'bg-white' : 'bg-black';
+const headerTextClass = isLight ? 'text-gray-900' : 'text-white';
+const titleClass = isLight ? 'text-gray-900' : 'text-white';
+const logo = isLight ? '/UCLQ_Logo.png' : '/UCLQ_Logo_White.png';
+
+const overlayClass = isLight
+  ? 'bg-gradient-to-b from-white/90 via-white/80 to-gray-50'
+  : 'bg-gradient-to-b from-black/90 via-[#080016]/80 to-[#0a001f]';
+
 let newsletters: Newsletter[] = [];
 try {
   newsletters = await fetchNewsletters();
@@ -14,13 +26,17 @@ try {
 }
 ---
 
-<Layout title="UCL Quantum Society - Newsletters">
+<Layout title="UCL Quantum Society - Newsletters" bodyClass={bodyClass} headerTextClass={headerTextClass} logo={logo}>
   <main class="relative min-h-screen">
-    <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
+    <div class="absolute inset-0 z-0">
+      <img src="/hero-background.jpg" alt="Background" class="w-full h-full object-cover opacity-60" />
+      <div class={`absolute inset-0 ${overlayClass}`}></div>
+    </div>
+    <div aria-hidden="true" class="absolute inset-0 z-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
     <Container>
-      <div class="relative pt-50 ml-auto">
+      <div class="relative z-10 pt-50 ml-auto">
         <div class="lg:w-2/3 text-center mx-auto">
-          <h1 class="text-white text-balance font-medium text-5xl md:text-6xl xl:text-7xl mb-8">Newsletters</h1>
+          <h1 class={`${titleClass} text-balance font-medium text-5xl md:text-6xl xl:text-7xl mb-8`}>Newsletters</h1>
           <p class="text-primary text-lg mb-12"></p>
 
           {
@@ -37,6 +53,7 @@ try {
                   dateTime={n.Release_Date}
                   pdfUrl={pdfUrl}
                   marginTop={i === 0 ? 'mt-0' : 'mt-10'}
+                  variant={theme}
                 />
               );
             })
