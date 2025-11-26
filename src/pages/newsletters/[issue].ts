@@ -35,6 +35,7 @@ export const GET: APIRoute = async ({ props }) => {
       return new Response('Failed to fetch PDF during build', { status: 404 });
     }
 
+    // Read the body as an ArrayBuffer to ensure we have the full content
     const buffer = await response.arrayBuffer();
 
     return new Response(buffer, {
@@ -49,3 +50,4 @@ export const GET: APIRoute = async ({ props }) => {
     return new Response('Error fetching PDF', { status: 500 });
   }
 };
+

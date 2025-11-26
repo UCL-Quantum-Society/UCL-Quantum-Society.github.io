@@ -1,9 +1,17 @@
 {
-  "rewrites": [
+  "headers": [
     {
       "source": "/newsletters/:issue(\\d+)",
-      "destination": "/newsletters/:issue.pdf"
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        }
+      ]
     }
   ]
 }
-
