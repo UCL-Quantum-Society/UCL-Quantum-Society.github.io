@@ -9,7 +9,6 @@ export async function getStaticPaths() {
 
   return newsletters
     .map((n: any) => {
-      // Handle potentially different Strapi versions (flat vs nested attributes)
       const pdfObj = n.PDF;
       const pdfRawUrl = pdfObj?.url;
       const issueNumber = n.Issue_Number;
@@ -36,11 +35,13 @@ export const GET: APIRoute = async ({ props }) => {
       return new Response('Failed to fetch PDF during build', { status: 404 });
     }
 
-    // Return the PDF body. Astro will save this as the static file content.
-    return new Response(response.body, {
+    const buffer = await response.arrayBuffer();
+
+    return new Response(buffer, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
+        'Content-Disposition': 'inline',
       },
     });
   } catch (error) {

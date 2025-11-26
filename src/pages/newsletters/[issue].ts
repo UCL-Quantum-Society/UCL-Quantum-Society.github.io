@@ -35,10 +35,13 @@ export const GET: APIRoute = async ({ props }) => {
       return new Response('Failed to fetch PDF during build', { status: 404 });
     }
 
-    return new Response(response.body, {
+    const buffer = await response.arrayBuffer();
+
+    return new Response(buffer, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
+        'Content-Disposition': 'inline',
       },
     });
   } catch (error) {
