@@ -1,96 +1,53 @@
-// src/pages/newsletters/[issue].ts
 import type { APIRoute } from 'astro';
-import { fetchNewsletterURL } from '../../lib/strapi';
+import { fetchNewsletters } from '../../lib/strapi';
 
-export const prerender = false;
-export const config = { runtime: 'edge' };
+export const prerender = true;
 
-const notFoundHtml = (issue: string) => `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Newsletter Not Found</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      :root { color-scheme: light dark; }
-      body { margin:0; padding:2rem; font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto; }
-      .wrap { max-width:720px; margin:auto; }
-      h1 { margin:0 0 .5rem; font-size:1.5rem; }
-      p { margin:.25rem 0; opacity:.85; }
-      a { text-decoration:underline; }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <h1>Issue not found</h1>
-      <p>We couldn’t find newsletter issue <strong>${issue}</strong>.</p>
-      <p><a href="/">Back Home</a></p>
-    </div>
-  </body>
-</html>`;
+export async function getStaticPaths() {
+  const newsletters = await fetchNewsletters();
+  const STRAPI_URL = import.meta.env.STRAPI_URL?.replace(/\/$/, '') || '';
 
-export const GET: APIRoute = async ({ params, request }) => {
-  const issue = params.issue ?? '';
+  return newsletters
+    .map((n: any) => {
+      const pdfObj = n.PDF;
+      const pdfRawUrl = pdfObj?.url;
+      const issueNumber = n.Issue_Number;
+
+      if (!pdfRawUrl || !issueNumber) return null;
+
+      const pdfUrl = pdfRawUrl.startsWith('http') ? pdfRawUrl : `${STRAPI_URL}${pdfRawUrl}`;
+
+      return {
+        params: { issue: String(issueNumber) },
+        props: { pdfUrl },
+      };
+    })
+    .filter((p): p is NonNullable<typeof p> => p !== null);
+}
+
+export const GET: APIRoute = async ({ props }) => {
+  const { pdfUrl } = props;
 
   try {
-    // Your helper that resolves to the actual Strapi file URL.
-    const url = await fetchNewsletterURL(issue);
+    const response = await fetch(pdfUrl);
 
-    // Optional: get a nice human filename (e.g., "UCLQ-Newsletter-42.pdf")
-    // If you already have this in Strapi, use it; otherwise hardcode a pattern.
-    const fileName = `newsletter-${issue}.pdf`;
-
-    // Forward Range header for streaming/seek support in browsers
-    const range = request.headers.get('range') ?? undefined;
-
-    // If your Strapi file is private, include the Bearer token here
-    const upstream = await fetch(url, {
-      headers: {
-        ...(range ? { Range: range } : {}),
-      },
-    });
-
-    if (upstream.status === 404) {
-      return new Response(notFoundHtml(issue), {
-        status: 404,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'no-store',
-        },
-      });
+    if (!response.ok) {
+      return new Response('Failed to fetch PDF during build', { status: 404 });
     }
 
-    // Copy important headers from Strapi, but override what we need
-    const headers = new Headers(upstream.headers);
+    // Read the body as an ArrayBuffer to ensure we have the full content
+    const buffer = await response.arrayBuffer();
 
-    // Force correct content type (Strapi usually sets this already)
-    headers.set('Content-Type', 'application/pdf');
-
-    // Nice filename; "inline" so it opens in-browser, "attachment" to force download
-    headers.set('Content-Disposition', `inline; filename="${fileName.replace(/"/g, '')}"`);
-
-    // Hide origin by removing any Location header and cross origin leaks
-    headers.delete('Location');
-
-    // Cache at the edge but allow background revalidation
-    headers.set('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800');
-    headers.set('CDN-Cache-Control', 'public, s-maxage=31536000');
-
-    // Ensure range support headers pass through
-    // (Strapi/your storage should already send Accept-Ranges, Content-Range, Content-Length on 206)
-    // Just don’t strip them.
-
-    return new Response(upstream.body, {
-      status: upstream.status, // 200 or 206 if range
-      headers,
-    });
-  } catch {
-    return new Response(notFoundHtml(issue), {
-      status: 404,
+    return new Response(buffer, {
+      status: 200,
       headers: {
-        'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': 'no-store',
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'inline',
       },
     });
+  } catch (error) {
+    console.error(`Error fetching PDF from ${pdfUrl}:`, error);
+    return new Response('Error fetching PDF', { status: 500 });
   }
 };
+

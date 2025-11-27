@@ -1,9 +1,30 @@
 @import 'tailwindcss';
 
 @theme {
-    --color-primary : #0b2b4e;
-    --color-secondary : var(--color-orange-600);
-    --color-info : var(--color-blue-600);
-    --color-qff-purple: #BD96FE;
-    --color-qff-pink: #FF7EB5;
+  --color-primary: #0b2b4e;
+  --color-secondary: var(--color-orange-600);
+  --color-info: var(--color-blue-600);
+  --color-qff-purple: #bd96fe;
+  --color-qff-pink: #ff7eb5;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

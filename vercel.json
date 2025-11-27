@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "source": "/newsletters/:issue(\\d+)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        }
+      ]
+    }
+  ]
+}

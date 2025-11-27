@@ -1,0 +1,63 @@
+---
+export const prerender = true;
+import { fetchNewsletters, getPdfUrl, type Newsletter } from '../lib/strapi';
+import NewsletterCard from './NewsletterCard.astro';
+import Container from './Container.astro';
+
+let latestNewsletter: Newsletter | null = null;
+let pdfUrl = '';
+
+try {
+  const newsletters = await fetchNewsletters();
+  if (newsletters.length > 0) {
+    latestNewsletter = newsletters[0];
+    pdfUrl = getPdfUrl(latestNewsletter);
+  }
+} catch (error) {
+  console.error('Failed to fetch newsletters:', error);
+}
+---
+
+<section class="py-12 md:py-24 bg-white relative overflow-hidden">
+  <Container>
+    <div class="text-center mb-12 relative z-10">
+      <h2 class="text-4xl md:text-6xl font-bold mb-6 text-primary">Q-Newsletters</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Your weekly pulse on quantum advancements, delivering breakthroughs, cutting-edge research, and market insights.
+      </p>
+    </div>
+
+    {
+      latestNewsletter ? (
+        <NewsletterCard
+          issueNumber={latestNewsletter.Issue_Number}
+          releaseDate={new Date(latestNewsletter.Release_Date).toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          })}
+          dateTime={latestNewsletter.Release_Date}
+          pdfUrl={pdfUrl}
+          marginTop="mt-0"
+          variant="light"
+        />
+      ) : (
+        <div class="text-center text-gray-500 py-12 bg-gray-50 rounded-2xl border border-gray-100 max-w-2xl mx-auto">
+          <p class="text-lg">Our newsletter is coming soon. Stay tuned!</p>
+        </div>
+      )
+    }
+
+    <div class="mt-12 text-center relative z-10">
+      <a
+        href="/newsletters"
+        class="inline-flex items-center gap-2 text-gray-600 hover:text-primary transition font-medium"
+      >
+        View All
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+  </Container>
+</section>

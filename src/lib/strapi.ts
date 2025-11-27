@@ -67,7 +67,7 @@ export async function fetchNewsletters(): Promise<Newsletter[]> {
     'sort[0]': 'Issue_Number:desc',
     'populate[0]': 'PDF',
     publicationState: 'live',
-    'pagination[pageSize]': '20',
+    'pagination[pageSize]': '100',
   });
 
   const res = await fetch(`${STRAPI_URL}/api/newsletters?${params.toString()}`, {
@@ -85,7 +85,6 @@ export async function fetchNewsletters(): Promise<Newsletter[]> {
 }
 
 export function getPdfUrl(n: Newsletter) {
-  const url = '/newsletters/' + n.Issue_Number; //n.PDF?.url || '';
-  console.log(url);
+  const url = '/newsletters/' + n.Issue_Number;
   return url;
 }

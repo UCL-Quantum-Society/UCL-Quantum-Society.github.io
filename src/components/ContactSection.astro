@@ -1,0 +1,81 @@
+---
+import Container from './Container.astro';
+---
+
+<section class="py-12 md:py-24 bg-white" id="contact">
+  <Container>
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-6xl font-bold mb-4 text-primary">Contact Us</h2>
+      <p class="text-lg text-gray-600">Get in touch with us through our social channels or email</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
+      <!-- WhatsApp -->
+      <a
+        href="https://chat.whatsapp.com/DUy8B1sFrPhAPUi1KRlwZY"
+        target="_blank"
+        class="flex flex-col items-center justify-center p-8 rounded-2xl bg-gray-50 hover:bg-primary/5 hover:shadow-lg transition duration-300 group border border-gray-100"
+      >
+        <div class="p-4 rounded-full bg-primary/10 text-primary mb-4 group-hover:scale-110 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8" viewBox="0 0 16 16">
+            <path
+              d="M13.601 2.326A7.994 7.994 0 0 0 8.003 0C3.582 0 .003 3.582.003 8.003c0 1.413.372 2.797 1.079 4.013L0 16l4.09-1.07A7.97 7.97 0 0 0 8.003 16c4.421 0 7.999-3.582 7.999-7.997a7.96 7.96 0 0 0-2.401-5.677zM8.003 14.545c-1.313 0-2.597-.352-3.707-1.016l-.264-.158-2.426.635.648-2.367-.172-.273A6.52 6.52 0 0 1 1.455 8.003c0-3.607 2.94-6.546 6.548-6.546a6.52 6.52 0 0 1 4.613 1.91 6.52 6.52 0 0 1 1.91 4.613c0 3.607-2.94 6.545-6.523 6.545zm3.563-4.97c-.195-.098-1.152-.57-1.33-.635-.178-.065-.308-.098-.438.098-.13.195-.503.635-.617.77-.115.13-.228.146-.423.049-.195-.098-.823-.303-1.567-.963-.579-.516-.97-1.153-1.085-1.348-.114-.195-.012-.3.086-.398.088-.088.195-.228.293-.342.098-.114.13-.195.195-.325.065-.13.033-.244-.016-.342-.049-.098-.438-1.06-.601-1.453-.158-.38-.319-.329-.438-.335l-.372-.008c-.13 0-.342.049-.52.244-.178.195-.68.664-.68 1.62s.697 1.882.793 2.013c.098.13 1.37 2.094 3.32 2.852.464.16.825.256 1.107.327.465.112.889.096 1.225.058.373-.045 1.152-.47 1.315-.924.162-.454.162-.843.114-.924-.049-.081-.178-.13-.373-.228z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">WhatsApp</h3>
+        <p class="text-sm text-gray-600 text-center">Join our community chat</p>
+      </a>
+
+      <!-- Instagram -->
+      <a
+        href="https://www.instagram.com/uclqsociety/"
+        target="_blank"
+        class="flex flex-col items-center justify-center p-8 rounded-2xl bg-gray-50 hover:bg-primary/5 hover:shadow-lg transition duration-300 group border border-gray-100"
+      >
+        <div class="p-4 rounded-full bg-primary/10 text-primary mb-4 group-hover:scale-110 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8" viewBox="0 0 16 16">
+            <path
+              d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Instagram</h3>
+        <p class="text-sm text-gray-600 text-center">Follow us for updates</p>
+      </a>
+
+      <!-- LinkedIn -->
+      <a
+        href="https://www.linkedin.com/company/ucl-quantum-society"
+        target="_blank"
+        class="flex flex-col items-center justify-center p-8 rounded-2xl bg-gray-50 hover:bg-primary/5 hover:shadow-lg transition duration-300 group border border-gray-100"
+      >
+        <div class="p-4 rounded-full bg-primary/10 text-primary mb-4 group-hover:scale-110 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8" viewBox="0 0 16 16">
+            <path
+              d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c-.837 0-1.358-.554-1.358-1.248 0-.706.533-1.248 1.387-1.248.854 0 1.358.542 1.358 1.248 0 .694-.504 1.248-1.387 1.248zm4.908 8.212V9.359c0-.215.016-.43.08-.584.175-.43.574-.876 1.244-.876.878 0 1.23.662 1.23 1.634v3.861h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.026h-.016a5.44 5.44 0 0 1 .016-.026V6.169h-2.4c.03.7 0 7.225 0 7.225h2.4z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">LinkedIn</h3>
+        <p class="text-sm text-gray-600 text-center">Connect with us</p>
+      </a>
+
+      <!-- Email -->
+      <a
+        href="mailto:uclquantumsociety@gmail.com"
+        class="flex flex-col items-center justify-center p-8 rounded-2xl bg-gray-50 hover:bg-primary/5 hover:shadow-lg transition duration-300 group border border-gray-100"
+      >
+        <div class="p-4 rounded-full bg-primary/10 text-primary mb-4 group-hover:scale-110 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8" viewBox="0 0 16 16">
+            <path
+              d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 3.383l-5.803 3.485L15 13.383V6.383zM1 6.383v7l6.803-3.515L1 6.383z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Email</h3>
+        <p class="text-sm text-gray-600 text-center">Send us a message</p>
+      </a>
+    </div>
+  </Container>
+</section>

@@ -1,11 +1,19 @@
 ---
 export const prerender = true;
 import HeroSection from '../components/HeroSection.astro';
+import TeamSection from '../components/TeamSection.astro';
+import EventsSection from '../components/EventsSection.astro';
+import LatestNewsletterSection from '../components/LatestNewsletterSection.astro';
+import ContactSection from '../components/ContactSection.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="UCL Quantum Society" headerShadowClass="shadow-lg shadow-primary/20">
-  <main class="">
-    <HeroSection />
+<Layout title="UCL Quantum Society" bodyClass="bg-white" headerTextClass="text-gray-900" logo="/UCLQ_Logo.png">
+  <main class="m-0">
+    <HeroSection theme="light" />
+    <EventsSection />
+    <LatestNewsletterSection />
+    <TeamSection />
+    <ContactSection />
   </main>
 </Layout>
