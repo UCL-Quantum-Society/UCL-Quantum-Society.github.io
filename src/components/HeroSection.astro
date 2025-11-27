@@ -15,7 +15,7 @@ const overlayClass =
 const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs white
 ---
 
-<div class="relative min-h-screen flex items-center overflow-hidden" data-theme={theme}>
+<div class="relative min-h-screen flex items-center overflow-hidden min-w-screen" data-theme={theme}>
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0 z-0">
     <img src="/hero-background.jpg" alt="Background" class="w-full h-full object-cover opacity-60" />
@@ -25,9 +25,10 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
   <div aria-hidden="true" class="absolute inset-0 z-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
   <div class="relative z-10 w-full">
     <div class="lg:w-2/3 text-center mx-auto">
-      <h1 id="hero-target" class="text-balance font-medium text-6xl" style={`--hero-text-color: ${textColorVar}`}>
+      <h1 class="sr-only">The future is Quantum</h1>
+      <div id="hero-target" class="font-medium text-6xl" style={`--hero-text-color: ${textColorVar}`}>
         <div id="hero-text" class="flex flex-col items-center gap-2"></div>
-      </h1>
+      </div>
       <div class="m-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready" aria-hidden="true">
         <a
           href="https://studentsunionucl.org/clubs-societies/quantum-society"
@@ -110,8 +111,6 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
     ];
 
     const wordDelay = 200;
-    let wordIndex = 0;
-    let currentLine = null;
 
     function revealRest() {
       restFadeEls.forEach((el, idx) => {
@@ -157,31 +156,39 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
       const line = document.createElement('div');
       if (style === 'light') {
         line.style.cssText =
-          "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 300; letter-spacing: -0.02em; font-weight: semibold;";
+          "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 300; letter-spacing: -0.02em;";
       } else {
         line.className += ' font-semibold';
       }
       return line;
     }
 
+    // Pre-render content to avoid layout shifts
+    let currentLine = null;
+    const wordSpans = [];
+
+    words.forEach((word, index) => {
+      if (!currentLine || (index > 0 && words[index - 1].lineBreak)) {
+        currentLine = createLine(word.style);
+        heroText.appendChild(currentLine);
+      }
+
+      if (currentLine.childNodes.length > 0) {
+        currentLine.appendChild(document.createTextNode(' '));
+      }
+
+      const wordSpan = document.createElement('span');
+      wordSpan.textContent = word.text;
+      wordSpan.style.opacity = '0';
+      wordSpan.style.display = 'inline-block';
+      currentLine.appendChild(wordSpan);
+      wordSpans.push(wordSpan);
+    });
+
+    let wordIndex = 0;
     function typeNextWord() {
-      if (wordIndex < words.length) {
-        const word = words[wordIndex];
-
-        // Create new line if needed
-        if (!currentLine || (wordIndex > 0 && words[wordIndex - 1].lineBreak)) {
-          currentLine = createLine(word.style);
-          heroText.appendChild(currentLine);
-        }
-
-        // Add word to current line with animation
-        if (currentLine.childNodes.length > 0) {
-          currentLine.appendChild(document.createTextNode(' '));
-        }
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'word-animate';
-        wordSpan.textContent = word.text;
-        currentLine.appendChild(wordSpan);
+      if (wordIndex < wordSpans.length) {
+        wordSpans[wordIndex].classList.add('word-animate');
         wordIndex++;
         setTimeout(typeNextWord, wordDelay);
       } else {
