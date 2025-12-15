@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Container.astro';
+import QHubCard from '../components/QHubCard.astro';
+
+const cards = [
+  {
+    type: 'Research Paper',
+    title: 'Quantum Error Correction in Superconducting Qubits',
+    description:
+      'A deep dive into the latest advancements in error correction protocols for superconducting quantum processors, exploring surface codes and their implementation.',
+    hashtags: ['QuantumComputing', 'Research', 'Superconducting'],
+    thumbnailUrl: '/Background.png',
+    link: '#',
+  },
+  {
+    type: 'News',
+    title: 'UCL Quantum Society Launches QHub',
+    description:
+      'We are excited to announce the launch of QHub, a central platform for all things quantum at UCL. Join us for events, resources, and community collaboration.',
+    hashtags: ['Community', 'Announcement', 'UCL'],
+    thumbnailUrl: '/hero-background.jpg',
+    link: '#',
+  },
+  {
+    type: 'Project',
+    title: 'Open Source Quantum Simulation Framework',
+    description:
+      'Collaborate on our new open-source project building a lightweight quantum circuit simulator in Python. Perfect for beginners and advanced users alike.',
+    hashtags: ['OpenSource', 'Python', 'Simulation'],
+    thumbnailUrl: '/LM-Event.jpeg', // Using another available image
+    link: '#',
+  },
+  {
+    type: 'Workshop',
+    title: 'Introduction to Qiskit',
+    description:
+      'Join us for a hands-on workshop learning the basics of Qiskit SDK. No prior quantum experience required, just bring your laptop!',
+    hashtags: ['Workshop', 'Qiskit', 'Education'],
+    // No thumbnail to test that variation
+    link: '#',
+  },
+];
+---
+
+<Layout title="QHub - UCL Quantum Society" headerTextClass="text-gray-900" logo="/UCLQ_Logo.png">
+  <main class="py-20">
+    <Container>
+      <div class="mb-12 text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">QHub Resources</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Explore the latest news, research, and projects from the UCL Quantum Society community.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {cards.map((card) => <QHubCard {...card} />)}
+      </div>
+    </Container>
+  </main>
+</Layout>
