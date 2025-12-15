@@ -1,0 +1,59 @@
+---
+export interface Props {
+  type: string;
+  title: string;
+  description: string;
+  hashtags?: string[];
+  link?: string;
+}
+
+const { type, title, description, hashtags = [], link = '#' } = Astro.props;
+---
+
+<a
+  href={link}
+  class="group block h-full bg-white border border-gray-100 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+>
+  <div class="p-6 flex flex-col h-full">
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-xs font-medium text-gray-400 uppercase tracking-widest">
+        {type}
+      </span>
+    </div>
+
+    <h3
+      class="text-xl font-bold text-gray-900 mb-2 pl-4 border-l-4 border-primary group-hover:text-primary transition-colors"
+    >
+      {title}
+    </h3>
+
+    {
+      hashtags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4 pl-4">
+          {hashtags.map((tag) => (
+            <span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">#{tag}</span>
+          ))}
+        </div>
+      )
+    }
+
+    <p class="text-gray-600 leading-relaxed mb-4 line-clamp-3 pl-4">
+      {description}
+    </p>
+
+    <div
+      class="mt-auto flex items-center text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform pl-4"
+    >
+      Read more
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 ml-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </div>
+  </div>
+</a>
