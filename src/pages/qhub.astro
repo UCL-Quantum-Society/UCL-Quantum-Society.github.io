@@ -43,76 +43,143 @@ const cards = [
   },
 ];
 
-const allTypes = ['All', ...new Set(cards.map((card) => card.type))];
-const types = allTypes.map((type) => ({ k: type, label: type }));
+const types = ['All', ...new Set(cards.map((card) => card.type))];
+const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())];
 ---
 
 <Layout title="QHub - UCL Quantum Society" headerTextClass="text-gray-900" logo="/UCLQ_Logo.png">
   <main class="py-20">
     <Container>
-      <div class="mb-12">
+      <div class="py-12">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <h1 class="text-5xl font-bold text-gray-900">Q-Hub</h1>
           <p class="text-2xl text-gray-600 max-w-2xl md:text-right">
             Explore the latest news, research, and projects from the UCL Quantum Society community.
           </p>
         </div>
+      </div>
 
-        <div class="flex flex-wrap items-center gap-2 mt-8">
-          <span class="mr-1 text-xs text-gray-400">Filter:</span>
-          {
-            types.map((t) => (
-              <Chip value={t.k} active={t.k === 'All'}>
-                {t.label}
-              </Chip>
-            ))
-          }
+      <div
+        class="flex flex-col md:flex-row md:items-start gap-4 mb-12 bg-[hsla(0,0%,93%,0.72)] backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-sm"
+      >
+        <div class="flex-1 space-y-3">
+          <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Resource Type</h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              types.map((type) => (
+                <Chip value={type} active={type === 'All'} data-filter-group="type">
+                  {type}
+                </Chip>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="hidden md:block w-px bg-black/10 self-stretch mx-2"></div>
+        <div class="h-px w-full bg-black/10 md:hidden my-2"></div>
+
+        <div class="flex-1 space-y-3">
+          <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Topic</h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              tags.map((tag) => (
+                <Chip value={tag} active={tag === 'All'} data-filter-group="tag">
+                  {tag}
+                </Chip>
+              ))
+            }
+          </div>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="cards-grid">
-        {cards.map((card) => <QHubCard {...card} data-type={card.type} />)}
+        {cards.map((card) => <QHubCard {...card} data-type={card.type} data-tags={(card.hashtags || []).join(',')} />)}
       </div>
     </Container>
   </main>
 </Layout>
 
 <script>
-  const chips = document.querySelectorAll('[data-filter-value]');
+  const typeChips = document.querySelectorAll('[data-filter-group="type"]');
+  const tagChips = document.querySelectorAll('[data-filter-group="tag"]');
   const cards = document.querySelectorAll('[data-type]');
 
-  chips.forEach((chip) => {
+  const selectedTypes = new Set(['All']);
+  const selectedTags = new Set(['All']);
+
+  function updateActiveState(chips, selectedSet) {
+    chips.forEach((c) => {
+      const value = c.getAttribute('data-filter-value');
+      const isSelected = selectedSet.has(value);
+      if (isSelected) {
+        c.classList.remove(
+          'bg-white',
+          'text-gray-600',
+          'border-gray-200',
+          'hover:border-primary',
+          'hover:text-primary'
+        );
+        c.classList.add('bg-primary', 'text-white', 'border-primary');
+      } else {
+        c.classList.add('bg-white', 'text-gray-600', 'border-gray-200', 'hover:border-primary', 'hover:text-primary');
+        c.classList.remove('bg-primary', 'text-white', 'border-primary');
+      }
+    });
+  }
+
+  function filterCards() {
+    cards.forEach((card) => {
+      const cardType = card.getAttribute('data-type');
+      const cardTags = (card.getAttribute('data-tags') || '').split(',');
+
+      const typeMatch = selectedTypes.has('All') || selectedTypes.has(cardType);
+
+      const tagMatch = selectedTags.has('All') || cardTags.some((tag) => selectedTags.has(tag));
+
+      if (typeMatch && tagMatch) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function toggleSelection(set, value, allValue = 'All') {
+    if (value === allValue) {
+      set.clear();
+      set.add(allValue);
+    } else {
+      if (set.has(allValue)) {
+        set.clear();
+      }
+
+      if (set.has(value)) {
+        set.delete(value);
+      } else {
+        set.add(value);
+      }
+
+      if (set.size === 0) {
+        set.add(allValue);
+      }
+    }
+  }
+
+  typeChips.forEach((chip) => {
     chip.addEventListener('click', () => {
-      const selectedType = chip.getAttribute('data-filter-value');
+      const val = chip.getAttribute('data-filter-value');
+      toggleSelection(selectedTypes, val);
+      updateActiveState(typeChips, selectedTypes);
+      filterCards();
+    });
+  });
 
-      // Update chips active state
-      chips.forEach((c) => {
-        const isSelected = c.getAttribute('data-filter-value') === selectedType;
-        if (isSelected) {
-          c.classList.remove(
-            'bg-white',
-            'text-gray-600',
-            'border-gray-200',
-            'hover:border-primary',
-            'hover:text-primary'
-          );
-          c.classList.add('bg-primary', 'text-white', 'border-primary');
-        } else {
-          c.classList.add('bg-white', 'text-gray-600', 'border-gray-200', 'hover:border-primary', 'hover:text-primary');
-          c.classList.remove('bg-primary', 'text-white', 'border-primary');
-        }
-      });
-
-      // Filter cards
-      cards.forEach((card) => {
-        const cardType = card.getAttribute('data-type');
-        if (selectedType === 'All' || cardType === selectedType) {
-          card.classList.remove('hidden');
-          // Add animation/transition class if desired, but hidden is enough for basic functionality
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+  tagChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const val = chip.getAttribute('data-filter-value');
+      toggleSelection(selectedTags, val);
+      updateActiveState(tagChips, selectedTags);
+      filterCards();
     });
   });
 </script>
