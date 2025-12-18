@@ -1,7 +1,7 @@
 ---
 import { AstroFont } from 'astro-font';
 import AppFooter from '../components/AppFooter.astro';
-import AppHeader from '../components/AppHeader.astro';
+import FloatingNavbar from '../components/FloatingNavbar.astro';
 import './../tailus.css';
 
 export interface Props {
@@ -47,7 +47,7 @@ const { title, bodyClass = 'bg-white', headerTextClass, footerTextClass, logo } 
     />
   </head>
   <body class={bodyClass}>
-    <AppHeader textClass={headerTextClass} logo={logo} />
+    <FloatingNavbar textClass={headerTextClass} logo={logo} />
     <slot />
     <AppFooter textClass={footerTextClass} />
     <script>
