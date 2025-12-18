@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container.astro';
 import QHubCard from '../components/QHubCard.astro';
+import Chip from '../components/Chip.astro';
 
 const cards = [
   {
@@ -41,21 +42,77 @@ const cards = [
     link: '#',
   },
 ];
+
+const allTypes = ['All', ...new Set(cards.map((card) => card.type))];
+const types = allTypes.map((type) => ({ k: type, label: type }));
 ---
 
 <Layout title="QHub - UCL Quantum Society" headerTextClass="text-gray-900" logo="/UCLQ_Logo.png">
   <main class="py-20">
     <Container>
-      <div class="mb-12 text-center">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">QHub Resources</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Explore the latest news, research, and projects from the UCL Quantum Society community.
-        </p>
+      <div class="mb-12">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <h1 class="text-5xl font-bold text-gray-900">Q-Hub</h1>
+          <p class="text-2xl text-gray-600 max-w-2xl md:text-right">
+            Explore the latest news, research, and projects from the UCL Quantum Society community.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 mt-8">
+          <span class="mr-1 text-xs text-gray-400">Filter:</span>
+          {
+            types.map((t) => (
+              <Chip value={t.k} active={t.k === 'All'}>
+                {t.label}
+              </Chip>
+            ))
+          }
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {cards.map((card) => <QHubCard {...card} />)}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="cards-grid">
+        {cards.map((card) => <QHubCard {...card} data-type={card.type} />)}
       </div>
     </Container>
   </main>
 </Layout>
+
+<script>
+  const chips = document.querySelectorAll('[data-filter-value]');
+  const cards = document.querySelectorAll('[data-type]');
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const selectedType = chip.getAttribute('data-filter-value');
+
+      // Update chips active state
+      chips.forEach((c) => {
+        const isSelected = c.getAttribute('data-filter-value') === selectedType;
+        if (isSelected) {
+          c.classList.remove(
+            'bg-white',
+            'text-gray-600',
+            'border-gray-200',
+            'hover:border-primary',
+            'hover:text-primary'
+          );
+          c.classList.add('bg-primary', 'text-white', 'border-primary');
+        } else {
+          c.classList.add('bg-white', 'text-gray-600', 'border-gray-200', 'hover:border-primary', 'hover:text-primary');
+          c.classList.remove('bg-primary', 'text-white', 'border-primary');
+        }
+      });
+
+      // Filter cards
+      cards.forEach((card) => {
+        const cardType = card.getAttribute('data-type');
+        if (selectedType === 'All' || cardType === selectedType) {
+          card.classList.remove('hidden');
+          // Add animation/transition class if desired, but hidden is enough for basic functionality
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

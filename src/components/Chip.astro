@@ -1,0 +1,22 @@
+---
+interface Props {
+  active?: boolean;
+  value?: string;
+  class?: string;
+}
+
+const { active = false, value, class: className } = Astro.props;
+---
+
+<button
+  class:list={[
+    'px-3 py-1 rounded-full text-xs font-medium transition-colors cursor-pointer border',
+    active
+      ? 'bg-primary text-white border-primary'
+      : 'bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary',
+    className,
+  ]}
+  data-filter-value={value}
+>
+  <slot />
+</button>

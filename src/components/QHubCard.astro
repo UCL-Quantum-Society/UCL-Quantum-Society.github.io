@@ -5,20 +5,31 @@ export interface Props {
   description: string;
   hashtags?: string[];
   link?: string;
+  [key: string]: any;
 }
 
-const { type, title, description, hashtags = [], link = '#' } = Astro.props;
+const { type, title, description, hashtags = [], link = '#', ...attrs } = Astro.props;
 ---
 
 <a
   href={link}
-  class="group block h-full bg-white border border-gray-100 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+  {...attrs}
+  class={`group block h-full rounded-2xl bg-white border border-gray-200 overflow-hidden font-space transition-all duration-300 hover:-translate-y-1 ${attrs.class || ''}`}
 >
   <div class="p-6 flex flex-col h-full">
     <div class="flex items-center justify-between mb-3">
       <span class="text-xs font-medium text-gray-400 uppercase tracking-widest">
         {type}
       </span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 text-gray-400 group-hover:text-primary transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10"></path>
+      </svg>
     </div>
 
     <h3
@@ -37,23 +48,8 @@ const { type, title, description, hashtags = [], link = '#' } = Astro.props;
       )
     }
 
-    <p class="text-gray-600 leading-relaxed mb-4 line-clamp-3 pl-4">
+    <p class="text-gray-600 mb-4 pl-4 font-light">
       {description}
     </p>
-
-    <div
-      class="mt-auto flex items-center text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform pl-4"
-    >
-      Read more
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 ml-1"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-      </svg>
-    </div>
   </div>
 </a>

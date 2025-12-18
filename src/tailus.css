@@ -6,6 +6,7 @@
   --color-info: var(--color-blue-600);
   --color-qff-purple: #bd96fe;
   --color-qff-pink: #ff7eb5;
+  --font-space: 'Space Grotesk', sans-serif;
 }
 
 html.lenis,
