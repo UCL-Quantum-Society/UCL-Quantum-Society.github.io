@@ -14,7 +14,7 @@ const { type, title, description, hashtags = [], link = '#', ...attrs } = Astro.
 <a
   href={link}
   {...attrs}
-  class={`group block h-full rounded-2xl bg-white border border-gray-200 overflow-hidden font-space transition-all duration-300 hover:-translate-y-1 ${attrs.class || ''}`}
+  class={`group block h-full rounded-2xl bg-white border-1 border-gray-200 overflow-hidden font-space transition-all duration-300 hover:-translate-y-1 ${attrs.class || ''}`}
 >
   <div class="p-6 flex flex-col h-full">
     <div class="flex items-center justify-between mb-3">
@@ -33,7 +33,7 @@ const { type, title, description, hashtags = [], link = '#', ...attrs } = Astro.
     </div>
 
     <h3
-      class="text-xl font-bold text-gray-900 mb-2 pl-4 border-l-4 border-primary group-hover:text-primary transition-colors"
+      class="text-xl font-bold text-gray-900 mb-2 pl-4 border-l-2 border-primary group-hover:text-primary transition-colors"
     >
       {title}
     </h3>

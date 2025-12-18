@@ -60,7 +60,7 @@ const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())
       </div>
 
       <div
-        class="flex flex-col md:flex-row md:items-start gap-4 mb-12 bg-[hsla(0,0%,93%,0.72)] backdrop-blur-xl p-6 rounded-3xl border border-white/20 shadow-sm"
+        class="flex flex-col md:flex-row md:items-start gap-4 mb-12 bg-primary/10 border-1 border-gray-200 p-6 rounded-2xl"
       >
         <div class="flex-1 space-y-3">
           <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Resource Type</h3>
@@ -75,7 +75,7 @@ const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())
           </div>
         </div>
 
-        <div class="hidden md:block w-px bg-black/10 self-stretch mx-2"></div>
+        <div class="hidden md:block w-0.5 bg-black/10 self-stretch mx-2"></div>
         <div class="h-px w-full bg-black/10 md:hidden my-2"></div>
 
         <div class="flex-1 space-y-3">
