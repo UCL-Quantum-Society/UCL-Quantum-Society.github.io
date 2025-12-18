@@ -1,0 +1,140 @@
+---
+export interface Props {
+  textClass?: string;
+  logo?: string;
+}
+
+const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
+---
+
+<header>
+  <nav
+    id="floating-navbar"
+    class="fixed left-1/2 top-6 z-50 flex h-[60px] w-[90%] max-w-[584px] -translate-x-1/2 flex-col overflow-hidden rounded-[30px] bg-[hsla(0,0%,93%,0.72)] shadow-sm backdrop-blur-xl transition-[height,background-color] duration-300 ease-in-out hover:bg-[hsla(0,0%,93%,0.9)] border border-white/20"
+  >
+    <div class="flex h-[60px] w-full items-center justify-between px-6 shrink-0">
+      <div class="flex items-center">
+        <a href="/" aria-label="home" class="flex items-center gap-2">
+          <img src={logo} alt="UCL Quantum Society logo" class="h-8 w-auto object-contain" />
+          <span class="font-semibold text-primary">UCL Quantum</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Desktop Links -->
+        <div class="hidden items-center gap-6 sm:flex">
+          <a href="/about" class="text-sm font-semibold text-primary transition-opacity hover:opacity-70">About</a>
+          <a href="/qff" class="text-sm font-semibold text-primary transition-opacity hover:opacity-70">QFF</a>
+          <a href="/qhub" class="text-sm font-semibold text-primary transition-opacity hover:opacity-70">Q-Hub</a>
+        </div>
+
+        <a
+          href="https://studentsunionucl.org/clubs-societies/quantum-society"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:block rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-transform hover:scale-105 active:scale-95"
+        >
+          Join
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="navbar-toggle"
+          aria-label="Toggle menu"
+          class="flex h-8 w-8 items-center justify-center rounded-full text-primary transition-colors hover:bg-black/5 sm:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 transition-transform duration-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            id="menu-icon"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="hidden h-5 w-5 transition-transform duration-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            id="close-icon"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Content -->
+    <div
+      id="mobile-menu"
+      class="flex flex-col items-center gap-4 px-6 pb-6 pt-2 opacity-0 transition-opacity duration-300 sm:hidden"
+    >
+      <a href="/about" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
+        >About</a
+      >
+      <a href="/qff" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
+        >QFF</a
+      >
+      <a href="/qhub" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
+        >Q-Hub</a
+      >
+
+      <div class="h-px w-full bg-black/10"></div>
+
+      <a
+        href="https://studentsunionucl.org/clubs-societies/quantum-society"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full rounded-full bg-primary py-3 text-center text-sm font-bold text-white transition-transform active:scale-95"
+      >
+        Join
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const navbar = document.getElementById('floating-navbar');
+  const toggleBtn = document.getElementById('navbar-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  let isOpen = false;
+
+  if (toggleBtn && navbar && mobileMenu && menuIcon && closeIcon) {
+    toggleBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+
+      if (isOpen) {
+        // Expand
+        navbar.classList.remove('bg-[hsla(0,0%,93%,0.72)]');
+        navbar.classList.add('bg-[hsla(0,0%,93%,0.9)]');
+
+        // Calculate expected height
+        // Since the menu is in the DOM (just clipped), navbar.scrollHeight includes it.
+        navbar.style.height = `${navbar.scrollHeight}px`;
+
+        mobileMenu.classList.remove('opacity-0');
+        mobileMenu.classList.add('opacity-100');
+
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        // Collapse
+        mobileMenu.classList.remove('opacity-100');
+        mobileMenu.classList.add('opacity-0');
+
+        navbar.style.height = '60px';
+
+        navbar.classList.add('bg-[hsla(0,0%,93%,0.72)]');
+        navbar.classList.remove('bg-[hsla(0,0%,93%,0.9)]');
+
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+  }
+</script>
