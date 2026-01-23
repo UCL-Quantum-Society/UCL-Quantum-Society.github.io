@@ -16,7 +16,7 @@ export async function getStaticPaths() {
       if (!pdfRawUrl || !issueNumber) return null;
 
       const pdfUrl = pdfRawUrl.startsWith('http') ? pdfRawUrl : `${STRAPI_URL}${pdfRawUrl}`;
-
+      console.log(`[Newsletters] Processing issue ${issueNumber} (id: ${n.id}): ${pdfUrl}`);
       return {
         params: { issue: String(issueNumber) },
         props: { pdfUrl },
@@ -50,4 +50,3 @@ export const GET: APIRoute = async ({ props }) => {
     return new Response('Error fetching PDF', { status: 500 });
   }
 };
-

@@ -3,48 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container.astro';
 import QHubCard from '../components/QHubCard.astro';
 import Chip from '../components/Chip.astro';
+import { fetchResources } from '../lib/strapi';
 
-const cards = [
-  {
-    type: 'Research Paper',
-    title: 'Quantum Error Correction in Superconducting Qubits',
-    description:
-      'A deep dive into the latest advancements in error correction protocols for superconducting quantum processors, exploring surface codes and their implementation.',
-    hashtags: ['QuantumComputing', 'Research', 'Superconducting'],
-    thumbnailUrl: '/Background.png',
-    link: '#',
-  },
-  {
-    type: 'News',
-    title: 'UCL Quantum Society Launches QHub',
-    description:
-      'We are excited to announce the launch of QHub, a central platform for all things quantum at UCL. Join us for events, resources, and community collaboration.',
-    hashtags: ['Community', 'Announcement', 'UCL'],
-    thumbnailUrl: '/hero-background.jpg',
-    link: '#',
-  },
-  {
-    type: 'Project',
-    title: 'Open Source Quantum Simulation Framework',
-    description:
-      'Collaborate on our new open-source project building a lightweight quantum circuit simulator in Python. Perfect for beginners and advanced users alike.',
-    hashtags: ['OpenSource', 'Python', 'Simulation'],
-    thumbnailUrl: '/LM-Event.jpeg', // Using another available image
-    link: '#',
-  },
-  {
-    type: 'Workshop',
-    title: 'Introduction to Qiskit',
-    description:
-      'Join us for a hands-on workshop learning the basics of Qiskit SDK. No prior quantum experience required, just bring your laptop!',
-    hashtags: ['Workshop', 'Qiskit', 'Education'],
-    // No thumbnail to test that variation
-    link: '#',
-  },
-];
-
-const types = ['All', ...new Set(cards.map((card) => card.type))];
-const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())];
+const cards = await fetchResources();
+// console.log(cards);
+const types = ['All', ...new Set(cards.map((card) => card.type.name))];
+// console.log(types);
+const tags = ['All', ...new Set(cards.map((card) => card.tags.map((tag) => tag.name)).flat() || [])];
+// console.log(tags);
 ---
 
 <Layout title="QHub - UCL Quantum Society" headerTextClass="text-gray-900" logo="/UCLQ_Logo.png">
@@ -52,9 +18,9 @@ const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())
     <Container>
       <div class="py-12">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <h1 class="text-5xl font-bold text-gray-900">Q-Hub</h1>
+          <h1 class="text-5xl font-bold text-gray-900">Resources</h1>
           <p class="text-2xl text-gray-600 max-w-2xl md:text-right">
-            Explore the latest news, research, and projects from the UCL Quantum Society community.
+            Explore the latest resources from the UCL Quantum Society.
           </p>
         </div>
       </div>
@@ -93,7 +59,19 @@ const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="cards-grid">
-        {cards.map((card) => <QHubCard {...card} data-type={card.type} data-tags={(card.hashtags || []).join(',')} />)}
+        {
+          cards.map((card) => (
+            <QHubCard
+              type={card.type.name}
+              title={card.name}
+              description={card.description}
+              hashtags={card.tags.map((t) => t.name)}
+              link={card.link}
+              data-type={card.type.name}
+              data-tags={(card.tags || []).map((t) => t.name).join(',')}
+            />
+          ))
+        }
       </div>
     </Container>
   </main>
@@ -117,7 +95,7 @@ const tags = ['All', ...new Set(cards.map((card) => card.hashtags || []).flat())
           'text-gray-600',
           'border-gray-200',
           'hover:border-primary',
-          'hover:text-primary'
+          'hover:text-primary',
         );
         c.classList.add('bg-primary', 'text-white', 'border-primary');
       } else {

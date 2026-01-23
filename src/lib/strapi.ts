@@ -16,13 +16,34 @@ export type Newsletter = {
   id: number;
   documentId: string;
   Name: string;
-  Release_Date: string; // "YYYY-MM-DD"
+  Release_Date: string;
   Issue_Number: number;
   PDF?: {
-    url: string; // already absolute in your payload
+    url: string;
     mime: string;
     name: string;
   } | null;
+};
+
+export type Resource = {
+  name: string;
+  description: string;
+  link: string;
+  tags: [ResourceTag];
+  type: [ResourceType];
+  media?: {
+    url: string;
+    mime: string;
+    name: string;
+  } | null;
+};
+
+export type ResourceTag = {
+  name: string;
+};
+
+export type ResourceType = {
+  name: string;
 };
 
 export async function fetchNewsletterURL(issue: number | string): Promise<URL> {
@@ -87,4 +108,28 @@ export async function fetchNewsletters(): Promise<Newsletter[]> {
 export function getPdfUrl(n: Newsletter) {
   const url = '/newsletters/' + n.Issue_Number;
   return url;
+}
+
+export async function fetchResources(): Promise<Resource[]> {
+  const params = new URLSearchParams({
+    'sort[0]': 'publishedAt:desc',
+    'populate[0]': 'media',
+    'populate[1]': 'tags',
+    'populate[2]': 'type',
+    publicationState: 'live',
+    'pagination[pageSize]': '100',
+  });
+
+  const res = await fetch(`${STRAPI_URL}/api/resources?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Strapi fetch failed: ${res.status} ${text}`);
+  }
+  const json = await res.json();
+  return json.data as Resource[];
 }

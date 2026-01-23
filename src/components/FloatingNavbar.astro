@@ -10,13 +10,13 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
 <header>
   <nav
     id="floating-navbar"
-    class="fixed left-1/2 top-6 z-50 flex h-[60px] w-[90%] max-w-[584px] -translate-x-1/2 flex-col overflow-hidden rounded-[30px] bg-primary/10 shadow-sm backdrop-blur-xl transition-[height,background-color] duration-300 ease-in-out hover:bg-primary/15"
+    class="fixed left-1/2 top-6 z-50 flex h-[60px] w-[90%] max-w-[640px] -translate-x-1/2 flex-col overflow-hidden rounded-[30px] bg-primary/10 shadow-sm backdrop-blur-xl transition-[height,background-color] duration-300 ease-in-out hover:bg-primary/15"
   >
     <div class="flex h-[60px] w-full items-center justify-between px-6 shrink-0">
       <div class="flex items-center">
         <a href="/" aria-label="home" class="flex items-center gap-2">
           <img src={logo} alt="UCL Quantum Society logo" class="h-8 w-auto object-contain" />
-          <span class="font-semibold text-primary">UCL Quantum</span>
+          <span class="font-semibold text-primary text-sm">UCL Quantum Society</span>
         </a>
       </div>
 
@@ -27,7 +27,9 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
           <a href="/newsletters" class="text-sm font-semibold text-primary transition-opacity hover:opacity-70"
             >Newsletter</a
           >
-          <a href="/qhub" class="text-sm font-semibold text-primary transition-opacity hover:opacity-70">Q-Hub</a>
+          <a href="/resources" class="text-sm font-semibold text-primary transition-opacity hover:opacity-70"
+            >Resources</a
+          >
         </div>
 
         <a
@@ -77,11 +79,9 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
       <a href="/about" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
         >About</a
       >
-      <a href="/qff" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
-        >QFF</a
-      >
-      <a href="/qhub" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
-        >Q-Hub</a
+      <a
+        href="/resources"
+        class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70">Resources</a
       >
 
       <div class="h-px w-full bg-black/10"></div>
