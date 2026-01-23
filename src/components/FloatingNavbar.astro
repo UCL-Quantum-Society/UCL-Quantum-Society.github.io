@@ -10,7 +10,7 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
 <header>
   <nav
     id="floating-navbar"
-    class="fixed left-1/2 top-6 z-50 flex h-[60px] w-[90%] max-w-[640px] -translate-x-1/2 flex-col overflow-hidden rounded-[30px] bg-primary/10 shadow-sm backdrop-blur-xl transition-[height,background-color] duration-300 ease-in-out hover:bg-primary/15"
+    class="fixed left-1/2 top-6 z-50 flex h-[60px] w-[90%] max-w-[640px] -translate-x-1/2 flex-col overflow-hidden rounded-[30px] bg-primary/10 shadow-sm backdrop-blur-xl transition-[height,background-color,border-radius] duration-300 ease-in-out hover:bg-primary/15 sm:rounded-[30px]"
   >
     <div class="flex h-[60px] w-full items-center justify-between px-6 shrink-0">
       <div class="flex items-center">
@@ -74,25 +74,25 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
     <!-- Mobile Menu Content -->
     <div
       id="mobile-menu"
-      class="flex flex-col items-center gap-4 px-6 pb-6 pt-2 opacity-0 transition-opacity duration-300 sm:hidden"
+      class="flex flex-col items-center gap-3 px-6 pb-5 pt-1 opacity-0 transition-opacity duration-300 sm:hidden"
     >
+      <div class="h-px w-full bg-black/10"></div>
       <a href="/about" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
         >About</a
       >
-      <a href="/about" class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70"
-        >Newsletter</a
+      <a
+        href="/newsletters"
+        class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70">Newsletter</a
       >
       <a
         href="/resources"
         class="w-full text-center text-sm font-semibold text-primary transition-opacity hover:opacity-70">Resources</a
       >
-      <div class="h-px w-full bg-black/10"></div>
-
       <a
         href="https://studentsunionucl.org/clubs-societies/quantum-society"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-full rounded-full bg-primary py-3 text-center text-sm font-bold text-white transition-transform active:scale-95"
+        class="mt-1 w-full rounded-full bg-primary py-2.5 text-center text-sm font-bold text-white transition-transform active:scale-95"
       >
         Join
       </a>
@@ -113,12 +113,12 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
       isOpen = !isOpen;
 
       if (isOpen) {
-        // Expand
-        navbar.classList.remove('bg-[hsla(0,0%,93%,0.72)]');
-        navbar.classList.add('bg-[hsla(0,0%,93%,0.9)]');
+        // Expand - adjust border radius for expanded state
+        navbar.style.borderRadius = '20px';
+        navbar.classList.remove('bg-primary/10');
+        navbar.classList.add('bg-primary/15');
 
         // Calculate expected height
-        // Since the menu is in the DOM (just clipped), navbar.scrollHeight includes it.
         navbar.style.height = `${navbar.scrollHeight}px`;
 
         mobileMenu.classList.remove('opacity-0');
@@ -132,9 +132,9 @@ const { textClass, logo = '/UCLQ_Logo.png' } = Astro.props;
         mobileMenu.classList.add('opacity-0');
 
         navbar.style.height = '60px';
-
-        navbar.classList.add('bg-[hsla(0,0%,93%,0.72)]');
-        navbar.classList.remove('bg-[hsla(0,0%,93%,0.9)]');
+        navbar.style.borderRadius = '30px';
+        navbar.classList.add('bg-primary/10');
+        navbar.classList.remove('bg-primary/15');
 
         menuIcon.classList.remove('hidden');
         closeIcon.classList.add('hidden');
