@@ -11,7 +11,14 @@ export async function getStaticPaths() {
     return [];
   }
 
-  const newsletters = await fetchNewsletters();
+  let newsletters = [];
+
+  try {
+   newsletters = await fetchNewsletters();
+  } catch (error) {
+    console.error('[Newsletters] Strapi unavailable — skipping newsletter pages.');
+    return [];
+  }
 
   return newsletters
     .map((n: any) => {
