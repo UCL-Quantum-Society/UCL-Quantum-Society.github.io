@@ -5,7 +5,14 @@ import QHubCard from '../components/QHubCard.astro';
 import Chip from '../components/Chip.astro';
 import { fetchResources } from '../lib/strapi';
 
-const cards = await fetchResources();
+let cards = [];
+
+try {
+  cards = await fetchResources();
+} catch (e) {
+  console.error('[Resources] Strapi unavailable — skipping resources.');
+  cards = [];
+}
 // console.log(cards);
 const types = ['All', ...new Set(cards.map((card) => card.type.name))];
 // console.log(types);
