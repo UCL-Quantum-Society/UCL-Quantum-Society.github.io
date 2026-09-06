@@ -4,8 +4,14 @@ import { fetchNewsletters } from '../../lib/strapi';
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const newsletters = await fetchNewsletters();
   const STRAPI_URL = import.meta.env.STRAPI_URL?.replace(/\/$/, '') || '';
+
+  if (!STRAPI_URL) {
+    console.log('[Newsletters] STRAPI_URL not configured — skipping newsletter pages.');
+    return [];
+  }
+
+  const newsletters = await fetchNewsletters();
 
   return newsletters
     .map((n: any) => {
