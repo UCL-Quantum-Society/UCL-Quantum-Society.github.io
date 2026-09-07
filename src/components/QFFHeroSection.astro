@@ -1,91 +1,131 @@
 ---
-import Container from './Container.astro';
+import Container from "./Container.astro";
 
 const events = [
   {
-    date: '28th Oct',
-    time: '6-8pm',
-    title: 'Opening Event: Qiskit 101',
+    date: "28th Oct",
+    time: "6-8pm",
+    title: "Opening Event: Qiskit 101",
     description:
-      'Join us for the official launch of UCL Qiskit Fall Fest 2026, with a guest speaker from IBM.',
-    location: 'UCL — Location TBD',
+      "Join us for the official launch of UCL Qiskit Fall Fest 2026, with a guest speaker from IBM.",
+    location: "UCL — Location TBD",
   },
   {
-    date: '30th Oct',
-    time: '6-8pm',
-    title: 'Quantum Computing Speaker',
+    date: "30th Oct",
+    time: "6-8pm",
+    title: "Quantum Computing Speaker",
     description:
-      'Hear from a researcher from UCL on how Quantum Computers work and the possible applications of them!',
-    location: 'UCL — Location TBD',
+      "Hear from a researcher from UCL on how Quantum Computers work and the possible applications of them!",
+    location: "UCL — Location TBD",
   },
   {
-    date: '4th Nov',
-    time: '6-8pm',
-    title: 'Inter-London Collab',
+    date: "4th Nov",
+    time: "6-8pm",
+    title: "Inter-London Collab",
     description:
-      'Hear from a researcher on Quantum Error Correction and how important it is in the modern day.',
-    location: 'UCL — Location TBD',
+      "Hear from a researcher on Quantum Error Correction and how important it is in the modern day.",
+    location: "UCL — Location TBD",
   },
   {
-    date: '6th Nov',
-    time: 'TBD',
-    title: 'PhD Roundtable',
+    date: "6th Nov",
+    time: "TBD",
+    title: "PhD Roundtable",
     description:
-      'Come and discuss with PhD students in and around the field of Quantum Computing to see what the future could hold for you!',
-    location: 'UCL — Location TBD',
+      "Come and discuss with PhD students in and around the field of Quantum Computing to see what the future could hold for you!",
+    location: "UCL — Location TBD",
+  },
+  {
+      date: "11th Nov",
+    time: "TBD",
+    title: "IOP Inter-London Collab",
+    description:
+      "Join us at the IOP With Kings College London and Imperial College London to discuss the future of Quantum Computing and how we can work together to make it a reality.",
+    location: "TBD",
+  },
+  {
+  date: "13th Nov",
+    time: "TBD",
+    title: "Speaker Event",
+    description:
+      "Hear from Industry professionals on how Quantum Computing is being used in the real world and what the future holds for it.",
+    location: "UCL — Location TBD",
+  },
+  {
+    date: "16th-20th Nov",
+    time: "TBD",
+    title: "Hackathon",
+    description:
+      "Details will be released soon.",
+    location: "TBD",
+  },
+  {
+  date: "20th Nov",
+    time: "TBD",
+    title: "Social Event",
+    description:
+      "Details will be released soon.",
+    location: "TBD",
   },
 ];
 
 const organisers = [
   {
-    name: 'Lyan Wilhelms Sandoval',
-    role: 'Lead Organiser',
+    name: "Lyan Wilhelms Sandoval",
+    role: "Lead Organiser",
+    linkedin: "https://www.linkedin.com/in/lyan-wilhelms-sandoval-90901526a/",
   },
   {
-    name: 'Bailey Hopkins',
-    role: 'Co-Organiser',
+    name: "Bailey Hopkins",
+    role: "Co-Organiser",
+    linkedin: "https://www.linkedin.com/in/bailey-h-73ba0a216/",
   },
   {
-    name: 'Clara Nascimento Kruger',
-    role: 'Co-Organiser',
+    name: "Clara Nascimento Kruger",
+    role: "Co-Organiser",
+    linkedin: "https://www.linkedin.com/in/clara-nascimento-kr%C3%BCger-648b84347/",
   },
   {
-    name: 'Evangelia Tzouve',
-    role: 'Co-Organiser',
+    name: "Evangelia Tzouve",
+    role: "Co-Organiser",
+    
   },
   {
-    name: 'Christina Marina Theodoratou',
-    role: 'Co-Organiser',
+    name: "Christina Marina Theodoratou",
+    role: "Co-Organiser",
+    linkedin: "https://www.linkedin.com/in/christina-theodoratou-866894300/",
   },
 ];
 
 const faq = [
   {
-    question: 'Who can attend?',
+    question: "Who can attend?",
     answer:
-      'UCL Qiskit Fall Fest is open to all UCL students interested in quantum computing and have a UCL Quantum Society membership. Individual event requirements and capacity will be announced alongside registration.',
+      "UCL Qiskit Fall Fest is open to all UCL students interested in quantum computing and have a UCL Quantum Society membership. Individual event requirements and capacity will be announced alongside registration.",
   },
   {
-    question: 'Do I need quantum computing experience?',
+    question: "Do I need quantum computing experience?",
     answer:
-      'No. The programme will include events suitable for beginners as well as opportunities for students with previous quantum computing experience. Take this as an opportunity to delve into the world of quantum computing!',
+      "No. The programme will include events suitable for beginners as well as opportunities for students with previous quantum computing experience. Take this as an opportunity to delve into the world of quantum computing!",
   },
   {
-    question: 'Do I need to register?',
+    question: "Do I need to register?",
     answer:
-      'Registration details will be released soon. Some events may have limited capacity and require separate registration.',
+      "Yes. You will need to register for individual events. Registration for events will open at a later date and will be announced on the UCL Quantum Society Instagram and website.",
   },
   {
-    question: 'Where will the events take place?',
+    question: "Where will the events take place?",
     answer:
-      'Events will take place across the UCL campus in London. Exact locations will be announced with the individual event details.',
+      "Events will take place across the UCL campus in London. Exact locations will be announced with the individual event details.",
   },
 ];
 ---
 
 <div class="relative overflow-hidden bg-black text-white" id="home">
   <div class="fixed inset-0 opacity-10 pointer-events-none">
-    <div class="absolute top-[12%] left-[5%] w-16 h-16 rounded-full bg-qff-purple animate-pulse"></div>
+    <div
+      class="absolute top-[12%] left-[5%] w-16 h-16 rounded-full bg-qff-purple animate-pulse"
+    >
+    </div>
     <div
       class="absolute top-[28%] right-[7%] w-12 h-12 rounded-full bg-qff-pink animate-pulse"
       style="animation-delay: 0.5s;"
@@ -115,7 +155,9 @@ const faq = [
 
   <section class="relative min-h-screen flex items-center pt-28 pb-20">
     <Container>
-      <div class="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-20 items-center">
+      <div
+        class="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-20 items-center"
+      >
         <div>
           <div
             class="inline-flex items-center rounded-full border border-qff-purple/40 bg-qff-purple/10 px-4 py-2 text-sm font-medium text-qff-purple mb-8"
@@ -123,7 +165,9 @@ const faq = [
             UCL Quantum Society presents
           </div>
 
-          <h1 class="text-5xl md:text-6xl xl:text-7xl font-medium tracking-tight leading-[1.05]">
+          <h1
+            class="text-5xl md:text-6xl xl:text-7xl font-medium tracking-tight leading-[1.05]"
+          >
             UCL Qiskit
             <br />
             Fall Fest
@@ -134,9 +178,12 @@ const faq = [
             </span>
           </h1>
 
-          <p class="mt-7 max-w-2xl text-lg md:text-xl text-white/70 leading-relaxed">
-            A celebration of quantum computing bringing together students, researchers and industry through talks,
-            workshops, challenges and hands-on experiences with Qiskit.
+          <p
+            class="mt-7 max-w-2xl text-lg md:text-xl text-white/70 leading-relaxed"
+          >
+            A celebration of quantum computing bringing together students,
+            researchers and industry through talks, workshops, challenges and
+            hands-on experiences with Qiskit.
           </p>
 
           <div class="mt-8 flex flex-wrap gap-x-8 gap-y-4 text-sm md:text-base">
@@ -166,7 +213,7 @@ const faq = [
               href="#register"
               class="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30"
             >
-              Register Interest
+              Register For Events
             </a>
           </div>
         </div>
@@ -200,9 +247,11 @@ const faq = [
           Explore quantum computing beyond the classroom
         </h2>
         <p class="mt-6 text-white/65 text-lg leading-relaxed">
-          Qiskit Fall Fest is a global series of student-led events focused on learning, experimenting and building
-          with quantum computing. UCL Quantum Society will bring the festival to UCL through a programme designed to
-          connect students with practical quantum technologies, leading researchers and the wider quantum community.
+          Qiskit Fall Fest is a global series of student-led events focused on
+          learning, experimenting and building with quantum computing. UCL
+          Quantum Society will bring the festival to UCL through a programme
+          designed to connect students with practical quantum technologies,
+          leading researchers and the wider quantum community.
         </p>
       </div>
 
@@ -211,7 +260,8 @@ const faq = [
           <div class="text-qff-purple text-3xl font-semibold">01</div>
           <h3 class="mt-5 text-xl font-semibold">Learn</h3>
           <p class="mt-3 text-white/60 leading-relaxed">
-            Build your understanding of quantum computing through accessible talks, workshops and practical sessions.
+            Build your understanding of quantum computing through accessible
+            talks, workshops and practical sessions.
           </p>
         </div>
 
@@ -219,8 +269,8 @@ const faq = [
           <div class="text-qff-pink text-3xl font-semibold">02</div>
           <h3 class="mt-5 text-xl font-semibold">Build</h3>
           <p class="mt-3 text-white/60 leading-relaxed">
-            Work directly with Qiskit and apply quantum concepts through challenges, demonstrations and collaborative
-            projects.
+            Work directly with Qiskit and apply quantum concepts through
+            challenges, demonstrations and collaborative projects.
           </p>
         </div>
 
@@ -232,7 +282,8 @@ const faq = [
           </div>
           <h3 class="mt-5 text-xl font-semibold">Connect</h3>
           <p class="mt-3 text-white/60 leading-relaxed">
-            Meet students, academics and professionals who share an interest in quantum science and technology.
+            Meet students, academics and professionals who share an interest in
+            quantum science and technology.
           </p>
         </div>
       </div>
@@ -241,10 +292,14 @@ const faq = [
 
   <section class="relative py-24" id="events">
     <Container>
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+      >
         <div>
           <p class="text-qff-purple font-medium mb-3">PROGRAMME</p>
-          <h2 class="text-3xl md:text-5xl font-medium tracking-tight">Upcoming events</h2>
+          <h2 class="text-3xl md:text-5xl font-medium tracking-tight">
+            Upcoming events
+          </h2>
         </div>
         <p class="text-white/50 max-w-md md:text-right">
           The full UCL Qiskit Fall Fest 2026 programme will be announced soon.
@@ -257,10 +312,11 @@ const faq = [
             <div class="group relative">
               <div
                 class={`absolute inset-0 rounded-2xl bg-gradient-to-r ${
-                  index % 2 === 0 ? 'from-qff-purple to-qff-pink' : 'from-qff-pink to-qff-purple'
+                  index % 2 === 0
+                    ? "from-qff-purple to-qff-pink"
+                    : "from-qff-pink to-qff-purple"
                 } blur opacity-0 group-hover:opacity-25 transition duration-300`}
-              >
-              </div>
+              />
 
               <div class="relative h-full rounded-2xl border border-white/10 bg-black/80 backdrop-blur-sm p-7 transition-all duration-300 group-hover:border-qff-purple/40">
                 <div class="flex justify-between gap-4 mb-6">
@@ -269,7 +325,7 @@ const faq = [
                     <p class="text-white/45 text-sm mt-1">{event.time}</p>
                   </div>
                   <div class="text-white/30 text-4xl font-medium">
-                    {String(index + 1).padStart(2, '0')}
+                    {String(index + 1).padStart(2, "0")}
                   </div>
                 </div>
 
@@ -293,7 +349,9 @@ const faq = [
 
   <section class="relative py-24">
     <Container>
-      <div class="rounded-3xl border border-qff-purple/20 bg-white/[0.03] overflow-hidden">
+      <div
+        class="rounded-3xl border border-qff-purple/20 bg-white/[0.03] overflow-hidden"
+      >
         <div class="grid lg:grid-cols-2">
           <div class="p-8 md:p-12">
             <p class="text-qff-pink font-medium mb-3">QISKIT HACKATHON</p>
@@ -302,8 +360,9 @@ const faq = [
             </h2>
 
             <p class="mt-6 text-white/65 text-lg leading-relaxed">
-              The Qiskit Hackathon will give participants the opportunity to work in teams, apply quantum computing
-              concepts and develop a project using Qiskit.
+              The Qiskit Hackathon will give participants the opportunity to
+              work in teams, apply quantum computing concepts and develop a
+              project using Qiskit.
             </p>
 
             <div class="mt-8 space-y-5">
@@ -315,7 +374,9 @@ const faq = [
                 </div>
                 <div>
                   <p class="font-semibold">Form a team</p>
-                  <p class="text-white/55 mt-1">Team sizes and registration details will be announced soon.</p>
+                  <p class="text-white/55 mt-1">
+                    Team sizes and registration details will be announced soon.
+                  </p>
                 </div>
               </div>
 
@@ -327,7 +388,10 @@ const faq = [
                 </div>
                 <div>
                   <p class="font-semibold">Build your project</p>
-                  <p class="text-white/55 mt-1">Use Qiskit to tackle the challenge and develop your solution.</p>
+                  <p class="text-white/55 mt-1">
+                    Use Qiskit to tackle the challenge and develop your
+                    solution.
+                  </p>
                 </div>
               </div>
 
@@ -339,7 +403,9 @@ const faq = [
                 </div>
                 <div>
                   <p class="font-semibold">Present and compete</p>
-                  <p class="text-white/55 mt-1">Submit your project for judging and compete for prizes.</p>
+                  <p class="text-white/55 mt-1">
+                    Submit your project for judging and compete for prizes.
+                  </p>
                 </div>
               </div>
             </div>
@@ -376,144 +442,174 @@ const faq = [
       </div>
 
       <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="h-44 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col items-center justify-center p-6">
-         <img
-           src="/imperial.png"
-           alt="Imperial Physics Society"
-          class="h-16 w-full object-contain mb-4"
-         />
-         <span class="text-white/60 font-medium text-center">Imperial Physics Soc</span>
-       </div>
+        <a
+          href="https://www.instagram.com/physoc.imperial/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-44 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col items-center justify-center p-6 transition-all duration-300 hover:border-qff-purple/40 hover:-translate-y-1"
+        >
+          <img
+            src="/imperial.png"
+            alt="Imperial Physics Society"
+            class="h-16 w-full object-contain mb-4"
+          />
+          <span class="text-white/60 font-medium text-center"
+            >Imperial Physics Soc</span
+          >
+        </a>
 
-       <div class="h-44 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col items-center justify-center p-6">
-         <img
-           src="/kcl.png"
-           alt="KCL Quantum Mechanics Society"
-           class="h-16 w-full object-contain mb-4"
-         />
-         <span class="text-white/60 font-medium text-center">KCL Quantum Mechanics Soc</span>
-       </div>
+        <a
+          href="https://www.instagram.com/kclquantummechanics"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-44 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col items-center justify-center p-6 transition-all duration-300 hover:border-qff-purple/40 hover:-translate-y-1"
+        >
+          <img
+            src="/kcl.png"
+            alt="KCL Quantum Mechanics Society"
+            class="h-16 w-full object-contain mb-4"
+          />
+          <span class="text-white/60 font-medium text-center"
+            >KCL Quantum Mechanics Soc</span
+          >
+        </a>
 
-        <div class="h-44 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col items-center justify-center p-6">
+        <a
+          href="https://www.ibm.com/quantum"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-44 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col items-center justify-center p-6 transition-all duration-300 hover:border-qff-purple/40 hover:-translate-y-1"
+        >
           <img
             src="/IBMQuantum.png"
-           alt="IBM Quantum"
-           class="h-16 w-full object-contain mb-4"
-         />
-         <span class="text-white/60 font-medium text-center">IBM Quantum</span>
-       </div>
-</div>
-        
+            alt="IBM Quantum"
+            class="h-16 w-full object-contain mb-4"
+          />
+          <span class="text-white/60 font-medium text-center">IBM Quantum</span>
+        </a>
       </div>
     </Container>
   </section>
+</div>
 
-  <section class="relative py-24">
-    <Container>
-      <div class="text-center mb-12">
-        <p class="text-qff-pink font-medium mb-3">ORGANISING TEAM</p>
+<section class="relative py-24">
+  <Container>
+    <div class="text-center mb-12">
+      <p class="text-qff-pink font-medium mb-3">ORGANISING TEAM</p>
+      <h2 class="text-3xl md:text-5xl font-medium tracking-tight">
+        Meet the team
+      </h2>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-6">
+      {
+        organisers.map((organiser, index) => (
+          <a
+            href={organiser.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative w-full sm:w-72"
+          >
+            <div
+              class={`absolute inset-0 rounded-2xl bg-gradient-to-r ${
+                index % 2 === 0
+                  ? "from-qff-purple to-qff-pink"
+                  : "from-qff-pink to-qff-purple"
+              } blur opacity-30 group-hover:opacity-55 transition duration-300`}
+            ></div>
+
+            <div class="relative h-28 rounded-2xl border border-white/10 bg-black/90 p-7 text-center backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 flex flex-col justify-center">
+              <h3 class="text-lg font-semibold text-qff-pink">
+                {organiser.name}
+              </h3>
+              <p class="mt-2 text-sm text-qff-purple">{organiser.role}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<section class="relative py-24">
+  <Container>
+    <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-12 lg:gap-20">
+      <div>
+        <p class="text-qff-purple font-medium mb-3">FAQ</p>
         <h2 class="text-3xl md:text-5xl font-medium tracking-tight">
-          Meet the team
+          Frequently asked questions
         </h2>
+        <p class="mt-5 text-white/55 leading-relaxed">
+          More information will be added as the 2026 programme and registration
+          details are confirmed.
+        </p>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-6">
+      <div class="divide-y divide-white/10 border-y border-white/10">
         {
-          organisers.map((organiser, index) => (
-            <div class="group relative w-full sm:w-72">
-              <div
-                class={`absolute inset-0 rounded-2xl bg-gradient-to-r ${
-                  index % 2 === 0 ? 'from-qff-purple to-qff-pink' : 'from-qff-pink to-qff-purple'
-                } blur opacity-30 group-hover:opacity-55 transition duration-300`}
-              >
-              </div>
-
-              <div class="relative h-28 rounded-2xl border border-white/10 bg-black/90 p-7 text-center backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 flex flex-col justify-center">
-                <h3 class="text-lg font-semibold text-qff-pink">{organiser.name}</h3>
-                <p class="mt-2 text-sm text-qff-purple">{organiser.role}</p>
-              </div>
-            </div>
+          faq.map((item) => (
+            <details class="group py-6">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-lg">
+                {item.question}
+                <span class="text-qff-pink text-2xl transition-transform duration-300 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p class="mt-4 pr-10 text-white/55 leading-relaxed">
+                {item.answer}
+              </p>
+            </details>
           ))
         }
       </div>
-    </Container>
-  </section>
+    </div>
+  </Container>
+</section>
 
-  <section class="relative py-24">
-    <Container>
-      <div class="grid lg:grid-cols-[0.75fr_1.25fr] gap-12 lg:gap-20">
-        <div>
-          <p class="text-qff-purple font-medium mb-3">FAQ</p>
-          <h2 class="text-3xl md:text-5xl font-medium tracking-tight">
-            Frequently asked questions
-          </h2>
-          <p class="mt-5 text-white/55 leading-relaxed">
-            More information will be added as the 2026 programme and registration details are confirmed.
-          </p>
-        </div>
-
-        <div class="divide-y divide-white/10 border-y border-white/10">
-          {
-            faq.map((item) => (
-              <details class="group py-6">
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-semibold text-lg">
-                  {item.question}
-                  <span class="text-qff-pink text-2xl transition-transform duration-300 group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <p class="mt-4 pr-10 text-white/55 leading-relaxed">
-                  {item.answer}
-                </p>
-              </details>
-            ))
-          }
-        </div>
+<section class="relative pt-20 pb-32" id="register">
+  <Container>
+    <div class="group relative">
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-3xl blur-xl opacity-25 group-hover:opacity-35 transition duration-500"
+      >
       </div>
-    </Container>
-  </section>
 
-  <section class="relative pt-20 pb-32" id="register">
-    <Container>
-      <div class="group relative">
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-qff-purple to-qff-pink rounded-3xl blur-xl opacity-25 group-hover:opacity-35 transition duration-500"
+      <div
+        class="relative rounded-3xl border border-qff-purple/30 bg-black/90 px-7 py-14 md:p-16 text-center"
+      >
+        <p class="text-qff-pink font-medium mb-3">GET INVOLVED</p>
+
+        <h2
+          class="text-3xl md:text-5xl font-medium tracking-tight max-w-3xl mx-auto"
         >
-        </div>
+          Be part of UCL Qiskit Fall Fest 2026
+        </h2>
 
-        <div class="relative rounded-3xl border border-qff-purple/30 bg-black/90 px-7 py-14 md:p-16 text-center">
-          <p class="text-qff-pink font-medium mb-3">GET INVOLVED</p>
+        <p class="mt-6 max-w-2xl mx-auto text-white/60 text-lg leading-relaxed">
+          Registration and event announcements are coming soon. Follow UCL
+          Quantum Society to stay updated as the programme is released.
+        </p>
 
-          <h2 class="text-3xl md:text-5xl font-medium tracking-tight max-w-3xl mx-auto">
-            Be part of UCL Qiskit Fall Fest 2026
-          </h2>
+        <div class="mt-9 flex flex-wrap justify-center gap-4">
+          <a
+            href="https://studentsunionucl.org/clubs-societies/quantum-society/events"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full bg-gradient-to-r from-qff-purple to-qff-pink px-7 py-3 font-semibold text-black transition-transform duration-300 hover:scale-105"
+          >
+            Register for Events
+          </a>
 
-          <p class="mt-6 max-w-2xl mx-auto text-white/60 text-lg leading-relaxed">
-            Registration and event announcements are coming soon. Follow UCL Quantum Society to stay updated as the
-            programme is released.
-          </p>
-
-          <div class="mt-9 flex flex-wrap justify-center gap-4">
-            <a
-              href="https://studentsunionucl.org/clubs-societies/quantum-society/events"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="rounded-full bg-gradient-to-r from-qff-purple to-qff-pink px-7 py-3 font-semibold text-black transition-transform duration-300 hover:scale-105"
-            >
-              Register for Events
-            </a>
-
-            <a
-              href="https://www.instagram.com/uclquantumsociety/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-semibold text-white transition-all duration-300 hover:bg-white/10"
-            >
-              Follow UCL Quantum Society
-            </a>
-          </div>
+          <a
+            href="https://www.instagram.com/uclquantumsociety/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-semibold text-white transition-all duration-300 hover:bg-white/10"
+          >
+            Follow UCL Quantum Society
+          </a>
         </div>
       </div>
-    </Container>
-  </section>
-</div>
+    </div>
+  </Container>
+</section>
