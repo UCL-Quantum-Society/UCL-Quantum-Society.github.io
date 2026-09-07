@@ -2,34 +2,52 @@
 export const prerender = true;
 
 export interface Props {
-  theme?: 'light' | 'dark';
+  theme?: "light" | "dark";
 }
 
-const { theme = 'dark' } = Astro.props;
+const { theme = "dark" } = Astro.props;
 
 const overlayClass =
-  theme === 'light'
-    ? 'bg-gradient-to-b from-white/90 via-white/80 to-gray-50'
-    : 'bg-gradient-to-b from-black/90 via-[#080016]/80 to-[#0a001f]';
+  theme === "light"
+    ? "bg-gradient-to-b from-white/90 via-white/80 to-gray-50"
+    : "bg-gradient-to-b from-black/90 via-[#080016]/80 to-[#0a001f]";
 
-const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs white
+const textColorVar = theme === "light" ? "#111827" : "#ffffff"; // gray-900 vs white
 ---
 
-<div class="relative min-h-screen flex items-center overflow-hidden min-w-screen" data-theme={theme}>
+<div
+  class="relative min-h-screen flex items-center overflow-hidden min-w-screen"
+  data-theme={theme}
+>
   <!-- Background Image with Overlay -->
   <div class="absolute inset-0 z-0">
-    <img src="/background2.png" alt="Background" class="w-full h-full object-cover opacity-100 scale-100" />
+    <img
+      src="/background2.png"
+      alt="Background"
+      class="w-full h-full object-cover opacity-100 scale-100"
+    />
     <div class={`absolute inset-0 ${overlayClass}`}></div>
   </div>
 
-  <div aria-hidden="true" class="absolute inset-0 z-0 grid grid-cols-2 -space-x-52 opacity-40"></div>
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 z-0 grid grid-cols-2 -space-x-52 opacity-40"
+  >
+  </div>
   <div class="relative z-10 w-full">
     <div class="lg:w-2/3 text-center mx-auto">
       <h1 class="sr-only">The future is Quantum</h1>
-      <div id="hero-target" class="font-medium text-6xl" style={`--hero-text-color: ${textColorVar}`}>
+      <div
+        id="hero-target"
+        class="font-medium text-6xl"
+        style={`--hero-text-color: ${textColorVar}`}
+      >
         <div id="hero-text" class="flex flex-col items-center gap-2"></div>
       </div>
-      <div class="m-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready" aria-hidden="true">
+      <div
+        class="m-12 flex flex-wrap justify-center gap-y-4 gap-x-6 fade-on-ready"
+        aria-hidden="true"
+      >
         <a
           href="https://studentsunionucl.org/clubs-societies/quantum-society"
           target="_blank"
@@ -37,6 +55,14 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
           class="relative flex h-11 w-full items-center justify-center px-6 rounded-full border border-primary/30 bg-[var(--color-primary)] hover:bg-[color-mix(in srgb, var(--color-primary) 80%, white)] text-white transition-all duration-300 transform hover:scale-105 sm:w-max"
         >
           <span class="relative text-base font-medium">Become a Member</span>
+        </a>
+        <a
+          href="/qff"
+          class="relative flex h-11 w-full items-center justify-center px-6 rounded-full border border-primary/30 bg-white/90 hover:bg-white text-primary transition-all sm:w-auto"
+        >
+          <span class="relative text-base font-medium"
+            >Qiskit Fall Fest 2026</span
+          >
         </a>
       </div>
     </div>
@@ -95,19 +121,19 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
 
 <script>
   (() => {
-    const heroText = document.getElementById('hero-text');
-    const wrapper = document.querySelector('[data-theme]');
-    const theme = wrapper ? wrapper.getAttribute('data-theme') : 'dark';
-    const restFadeEls = Array.from(document.querySelectorAll('.fade-on-ready'));
+    const heroText = document.getElementById("hero-text");
+    const wrapper = document.querySelector("[data-theme]");
+    const theme = wrapper ? wrapper.getAttribute("data-theme") : "dark";
+    const restFadeEls = Array.from(document.querySelectorAll(".fade-on-ready"));
 
     if (!heroText) return;
 
     // Define words with their respective styles
     const words = [
-      { text: 'The', style: 'light', lineBreak: false },
-      { text: 'future', style: 'light', lineBreak: false },
-      { text: 'is', style: 'light', lineBreak: true },
-      { text: 'Quantum', style: 'bold', lineBreak: false },
+      { text: "The", style: "light", lineBreak: false },
+      { text: "future", style: "light", lineBreak: false },
+      { text: "is", style: "light", lineBreak: true },
+      { text: "Quantum", style: "bold", lineBreak: false },
     ];
 
     const wordDelay = 200;
@@ -116,10 +142,12 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
       restFadeEls.forEach((el, idx) => {
         setTimeout(
           () => {
-            el.classList.add('show');
-            el.removeAttribute('aria-hidden');
+            el.classList.add("show");
+            el.removeAttribute("aria-hidden");
             if (idx === 0) {
-              const firstFocusable = el.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+              const firstFocusable = el.querySelector(
+                'a, button, input, [tabindex]:not([tabindex="-1"])',
+              );
               if (firstFocusable instanceof HTMLElement) {
                 setTimeout(() => firstFocusable.focus(), 420 + idx * 120);
               }
@@ -131,34 +159,36 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
     }
 
     // Respect user's reduced motion preference
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      const line1 = document.createElement('div');
+      const line1 = document.createElement("div");
       line1.style.cssText =
         "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 500; letter-spacing: 0.5em; color: var(--color-primary);";
-      line1.textContent = 'The future is';
+      line1.textContent = "The future is";
 
-      const line2 = document.createElement('div');
-      line2.className = `font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'} letter-spacing-0.5em`;
-      line2.textContent = 'Quantum';
+      const line2 = document.createElement("div");
+      line2.className = `font-semibold ${theme === "light" ? "text-gray-900" : "text-white"} letter-spacing-0.5em`;
+      line2.textContent = "Quantum";
 
       heroText.appendChild(line1);
       heroText.appendChild(line2);
 
       restFadeEls.forEach((el) => {
-        el.classList.add('show');
-        el.removeAttribute('aria-hidden');
+        el.classList.add("show");
+        el.removeAttribute("aria-hidden");
       });
       return;
     }
 
     function createLine(style) {
-      const line = document.createElement('div');
-      if (style === 'light') {
+      const line = document.createElement("div");
+      if (style === "light") {
         line.style.cssText =
           "font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 300; letter-spacing: -0.02em;";
       } else {
-        line.className += ' font-semibold';
+        line.className += " font-semibold";
       }
       return line;
     }
@@ -174,13 +204,13 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
       }
 
       if (currentLine.childNodes.length > 0) {
-        currentLine.appendChild(document.createTextNode(' '));
+        currentLine.appendChild(document.createTextNode(" "));
       }
 
-      const wordSpan = document.createElement('span');
+      const wordSpan = document.createElement("span");
       wordSpan.textContent = word.text;
-      wordSpan.style.opacity = '0';
-      wordSpan.style.display = 'inline-block';
+      wordSpan.style.opacity = "0";
+      wordSpan.style.display = "inline-block";
       currentLine.appendChild(wordSpan);
       wordSpans.push(wordSpan);
     });
@@ -188,7 +218,7 @@ const textColorVar = theme === 'light' ? '#111827' : '#ffffff'; // gray-900 vs w
     let wordIndex = 0;
     function typeNextWord() {
       if (wordIndex < wordSpans.length) {
-        wordSpans[wordIndex].classList.add('word-animate');
+        wordSpans[wordIndex].classList.add("word-animate");
         wordIndex++;
         setTimeout(typeNextWord, wordDelay);
       } else {
